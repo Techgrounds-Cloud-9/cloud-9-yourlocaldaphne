@@ -23,4 +23,4 @@
 
 ### Results
 [Created a new repository, gave my teammates permission to collaborate and cloned their repository.]
-![](./Screenshot_Github.PNG)
+![](./screenshot_github.png)
