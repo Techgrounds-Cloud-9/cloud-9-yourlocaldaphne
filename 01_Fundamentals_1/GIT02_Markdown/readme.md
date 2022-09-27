@@ -12,6 +12,7 @@ Creating an text document with a Markdown editor.
 ### Sources
 - https://en.wikipedia.org/wiki/WYSIWYM
 - https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+- https://en.wikipedia.org/wiki/WYSIWYG
 
 ### Overcome challenges
 I didn't knew what kind of formatting elements there were so I found a very good sheet that explained all the formatting element options.
