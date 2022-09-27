@@ -9,5 +9,4 @@ A very cool lightweight markup language that you can use to add formatting eleme
 | Not knowing about Markdown | Knowing about Markdown | Using Markdown  |
 | ------------- |:-------------:| -----:|
 | Unhappy      | Neutral | Very happy |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+
