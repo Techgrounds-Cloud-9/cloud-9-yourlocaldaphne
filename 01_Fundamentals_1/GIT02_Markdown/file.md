@@ -1,6 +1,4 @@
-# Markdown
-
-##Using Markdown
+## Using Markdown
 A very cool lightweight markup language that you can use to add formatting elements to plaintext text documents.
 
 
