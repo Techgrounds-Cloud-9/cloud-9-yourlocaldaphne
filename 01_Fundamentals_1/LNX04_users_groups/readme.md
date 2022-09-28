@@ -19,6 +19,8 @@ I wasn't sure how to check if the new user had sudo privelage because I was look
 
 ### Results
 Created a new user `cashew_` gave them sudo privileges and a password. They are also part of an admin group called `sudo`, located `cashew_`'s data and made screenshots of my results.
+
+
 ![](./screenshot_user_cashew.png)
 ![](./screenshot_sudo_cashew.png)
 ![](./screenshot_passwd.png)
