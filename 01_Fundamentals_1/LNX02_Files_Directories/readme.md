@@ -17,6 +17,6 @@ Finding out the current working directory, make a listing of all files in the di
 I was a little confused by the use of words on the assignment. I thought there needed to be directories already present, but I asked Shikha everything looked fine to her so I could continue the assignment.
 
 ### Results
-Made a SSH-connection, navigated by using both absolute and relative paths. Made a new dir and added a .txt file containing text to it.
+Made a SSH-connection, navigated by using both absolute and relative paths. Made a new dir and added a .txt file containing text to it. 
 ![](./screenshot_linux.png)
 

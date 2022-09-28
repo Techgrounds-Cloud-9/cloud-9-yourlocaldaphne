@@ -6,7 +6,7 @@ Creating an text document with a Markdown editor.
 - Markup: Markup language refers to a text-encoding system consisting of a set of symbols inserted in a text document to control its structure, formatting, or the relationship between its parts.
 - WYSIWYG: WYSIWYG implies a user interface that allows the user to view something very similar to the end result while the document is being created.
 - WYSIWYM: In a WYSIWYM editor, the user writes the contents in a structured way, marking the content according to its meaning, its significance in the document, and leaves its final appearance up to one or more separate style sheets.
-- HTML: HTML stands for HyperText Markup Language. It is a standard markup language for web page creation. It allows the creation and structure of sections, paragraphs, and links using HTML elements (the building blocks of a web page) such as tags and attributes. 
+- HTML: HTML stands for HyperText Markup Language. It is a standard markup language for web page creation. It allows the creation and structure of sections, paragraphs, and links using HTML elements (the building blocks of a web page) such as tags and attributes.  
 
 ## Exercise
 ### Sources

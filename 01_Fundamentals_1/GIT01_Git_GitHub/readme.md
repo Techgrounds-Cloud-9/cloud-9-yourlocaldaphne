@@ -10,7 +10,7 @@
 - Pull: Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub.
 - Merge: Merging is Git's way of putting a forked history back together again.
 - Fork: A fork is a copy of a repository that you manage. Forks let you make changes to a project without affecting the original repository.
-
+ 
 ## Exercise
 ### Sources
 - https://www.youtube.com/watch?v=8Dd7KRpKeaE

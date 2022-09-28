@@ -16,7 +16,7 @@ Making a SSH-connection to a VM and typing "whoami" when connected.
 - https://www.howtogeek.com/670447/how-to-copy-the-full-path-of-a-file-on-windows-10/
 - https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open
 
-
+ 
 ### Overcome challenges
 The key I wanted to use was 'too open', but I found a very good article that had the same problem. I was so focussed on making it work that I forgot I probably needed to change permissions. Luckily when I read the assignment again I knew what to look for. 
 
