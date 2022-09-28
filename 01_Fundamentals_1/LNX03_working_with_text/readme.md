@@ -2,11 +2,10 @@
 Using the echo command and outpus rediraction to add a new sentence containing 'techgrounds'. Using a command to print the contents of the file to the terminal. Using a command so it only prints the sentance containing 'techgrounds'. Redirection the filtered output to a new file called 'techgrounds.txt'.
 
 ## Key terminology
-- Terminal: 
-- Echo command: 
-- Input: 
-- Output: 
-- Pipe command: 
+- Terminal: The Linux terminal is a text-based interface used to control a Linux computer. It's just one of the many tools provided to Linux users for accomplishing any given task, but it's widely considered the most efficient method available.
+- Echo command: The echo command is a built-in Linux feature that prints out arguments as the standard output.
+- Input and output: In Linux, when you enter a command as an input, you receive an output. 
+- Pipe command: Pipe is used to combine two or more commands, and in this, the output of one command acts as input to another command, and this command's output may act as input to the next command and so on.
 
 ## Exercise
 ### Sources
