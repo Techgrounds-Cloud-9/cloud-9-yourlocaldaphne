@@ -36,4 +36,6 @@ Registered the script in the crontab so that it runs every minute.
 Create a script that writes available disk space to a log file in ‘/var/logs’. Used the cron job so that it runs weekly.
 
 ![](./screenshot_diskspace.png)
+
+
 ![](./screenshot_diskspace_every_week.png)
