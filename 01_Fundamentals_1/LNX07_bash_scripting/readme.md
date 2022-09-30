@@ -1,6 +1,8 @@
 # [Bash scripting]
 Making and running scripts with bash. Making PATH variable. Generating random numbers and checking conditions using `if`, `elif` and/or `else`.
 
+Simply put, bash is a shell and command language that is used in Linux. 
+
 ## Key terminology
 - Bash shell: Bash is the shell, or command language interpreter, for the GNU operating system.
 - Bash script: A bash script is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line.

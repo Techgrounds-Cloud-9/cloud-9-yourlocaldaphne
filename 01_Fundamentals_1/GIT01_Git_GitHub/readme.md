@@ -1,6 +1,8 @@
 # [Git and Github]
 [Creating an account on GitHub and making a repository. Giving permission to teammates to collaborate. Using git to push and pull/clone.]
 
+Simply put, Git is a version control system that lets you manage and keep track of your source code history. GitHub is a cloud-based hosting service that lets you manage Git repositories. If you have open-source projects that use Git, then GitHub is designed to help you better manage them. 
+
 ## Key terminology
 - Repository: A repository contains all of your project's files and each file's revision history.
 - Main / Master: The default branch name of the repository.

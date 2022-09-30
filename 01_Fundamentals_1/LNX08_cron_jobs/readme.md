@@ -1,6 +1,8 @@
 # [Cron jobs]
 Making automated bash scripts using Cron jobs to write data to a text file and terminal on a regular schedule.
 
+A cron job is a Linux command used for scheduling tasks to be executed at certain times. 
+
 ## Key terminology
 - Cron jobs: Cron jobs are a standard method of scheduling tasks to run on your server. Cron is a service running in the background that will execute commands (jobs) at a specified time, or at a regular interval.
 - Crontab: Crontab is a UNIX command that creates a table or list of commands, each of which is to be executed by the operating system at a specified time.
