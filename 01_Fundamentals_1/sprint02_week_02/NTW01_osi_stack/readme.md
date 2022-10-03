@@ -27,7 +27,7 @@ This was not good for both manufacturers and consumers, manufacturers were force
 
 The OSI model consists of 7 layers.
 
-![](./screenshot_osi_7layers.png)
+![](./screenshot_osi_7layers.png
 
 
 
