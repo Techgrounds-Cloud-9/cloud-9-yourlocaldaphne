@@ -21,7 +21,7 @@ I could login to my router because my internet and router are provided by the ho
 
 ### Results
 
-# Name and discribe common network devices:
+### Name and discribe common network devices:
 
 - Hub
 Hubs connect multiple computer networking devices together. A hub also acts as a repeater in that it amplifies signals that deteriorate after traveling long distances over connecting cables. A hub is the simplest in the family of network connecting devices because it connects LAN components with identical protocols.
@@ -50,10 +50,12 @@ A repeater is an electronic device that amplifies the signal it receives. You ca
 While an access point (AP) can technically involve either a wired or wireless connection, it commonly means a wireless device. An AP works at the second OSI layer, the Data Link layer, and it can operate either as a bridge connecting a standard wired network to wireless devices or as a router passing data transmissions from one access point to another.
 
 
-# Find the list of all conected devices to your router and find out what other information the router has over all the contected devices:
+### Find the list of all conected devices to your router and find out what other information the router has over all the contected devices:
 
-![](/cloud-9-yourlocaldaphne/00_includes/NTW-02_devices.png)
 
-# Find out on which DHCP server my network is and it's configurations:
+![](./../../../00_includes/NTW-02_devices.png)
+
+
+### Find out on which DHCP server my network is and it's configurations:
 
 ![](./screenshot_tcpip_4layers.png)
