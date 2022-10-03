@@ -41,5 +41,8 @@ Organizations that determin protcols:
 If you want to introduce a new protocol you have to write a specification that defines the data you send through the TCP sockets. Mostly you are defining commands and payloads. Then I needs to be accepted by an IETF group.
 
 ### Look into wireshark and install this program. Try and capture a bit of your own network data. Search for a protocol you know and try to understand how it functions.
-My own network data:
-![](./../../../00_includes/screenshot_NTW04)
+Here you can see UDP and TCP protocols being used on my own network:
+
+![](./../../../00_includes/screenshot_NTW03_wireshark.png)
+
+UDP is a standerdized method for transferring data between two computers in a network. UDP does this process in a simple fashion: it sends packets (units of data transmission) directly to a computer without making a connection first, indicating the order of the packets or checking if they arrived as intended. It is much faster than TCP but less reliable because of that.  
