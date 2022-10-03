@@ -52,7 +52,7 @@ While an access point (AP) can technically involve either a wired or wireless co
 
 # Find the list of all conected devices to your router and find out what other information the router has over all the contected devices:
 
-![](./../../00_includes/NTW-02_devices.png)
+![](/cloud-9-yourlocaldaphne/00_includes/NTW-02_devices.png)
 
 # Find out on which DHCP server my network is and it's configurations:
 
