@@ -17,7 +17,7 @@ Network devices, or networking hardware, are physical devices that are required 
 - https://www.wikihow.com/See-Who-Is-Connected-to-Your-Wireless-Network
 
 ### Overcome challenges
-I could login to my router because my internet and router are provided by the housing company. I asked my learning coaches what to do and they said I could do the assignment long with a teammate.
+I couldn't login to my router because my internet and router are provided by the housing company. I asked my learning coaches what to do and they said I could do the assignment long with a teammate.
 
 ### Results
 
