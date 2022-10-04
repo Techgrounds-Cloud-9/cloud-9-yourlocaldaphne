@@ -10,10 +10,42 @@ Binary number systems use a base of two while hexadecimal uses a base of 16. In 
 ### Sources
 - http://www.eecs.umich.edu/courses/eecs270/270lab/270_docs/HexNumSys.pdf
 - https://www.youtube.com/watch?v=izywvlnQfdE
+- https://www.youtube.com/watch?v=pg-HEGBpCQk
+- https://www.youtube.com/watch?v=rsxT4FfRBaM
 
 ### Overcome challenges
 I didn't knew how to count in binary or hex so I used tutorials and articles with examples. 
 
 ### Results
 
+Decimal        |  Binary  
+ ------------- | --------:
+ 16            |   0001 0000       
+ 128           |   1000 0000       
+ 228           |   1110 0100       
+ 112           |   0111 0000       
+ 73            |   0100 1001       
 
+ Binary        | Decimal  
+ ------------- |  -------:
+ 1010 1010     |   170       
+ 1111 0000     |   240       
+ 1101 1011     |   219       
+ 1010 0000     |   160       
+ 0011 1010     |   58       
+
+ Decimal       |   Hex   
+ ------------- |  ------:
+ 15            |   F    
+ 37            |   25     
+ 246           |   F6     
+ 125           |   7D     
+ 209           |   D1     
+
+ Hex           |  Decimal  
+ ------------- |  --------:
+ 88            |   136        
+ e0            |   224        
+ cb            |   203        
+ 2f            |    47      
+ df            |   223        
