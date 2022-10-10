@@ -32,4 +32,8 @@ A way to share encryption key without revealing it to everyone is to share the p
 Shortcomings of this method:
 If you can't use a private environment for example, through private messages or other private comminucation options, you can't not ensure you're message is being viewed by others. You should never share private keys in a public environment. This could be solved by using a public key.
 
+The solution would be to use a public key like this:
 
+![](./../../../00_includes/SEC04_screenshot_caesar_keygen.png)
+
+![](./../../../00_includes/SEC04_screenshot_caesar.png)
