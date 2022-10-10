@@ -37,7 +37,7 @@ Some common types of Authorization are:
 - Access Control Lists (ACLs); determines which users or services can access a particular digital environment. They accomplish this access control by enforcing allow or deny rules based on the user's authorization level.
 - Acces to data; In any enterprise environment, you typically have data with different levels of sensitivity. For example, you may have public data that you find on the company's website, internal data that is only accessible to employees, and confidential data that only a handful of individuals can access. 
 
-![](./../../../00_includes)
+![](./../../../00_includes/SEC03_screenshot_authen_author.png)
 
 The three factors of authentication are:
 - Something you know (such as a password) 
