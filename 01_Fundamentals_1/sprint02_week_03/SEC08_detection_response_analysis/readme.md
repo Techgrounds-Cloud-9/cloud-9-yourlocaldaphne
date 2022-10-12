@@ -19,6 +19,8 @@ Learning about detection, response and analysis to prevent a malware attack.
 
 ### Sources
 - https://www.barracuda.com/glossary/intrusion-detection-system
+- https://www.druva.com/blog/understanding-rpo-and-rto/
+- https://www.acc-ict.com/blog/recovery-time-objective-rto-en-recovery-point-objective-rpo
 
 ### Overcome challenges
 I didn't knew what all the key terms meant and what RPO and RTO was so I had to do some research about it.
