@@ -18,7 +18,7 @@ Learning about password (managers) and hashing.
 - https://www.makeuseof.com/what-is-salting/
 
 ### Overcome challenges
-
+I didn't knew which part of the output the hash was so I had to do research about that. I found out everything between the third `$` and `;` is the hash.
 
 ### Results
 
