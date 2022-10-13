@@ -31,6 +31,8 @@ Exercise 2:
 - https://appdividend.com/2022/03/19/how-to-check-data-type-in-python/#:~:text=To%20check%20the%20data%20type,Python%20returns%20the%20data%20type.
 - https://www.youtube.com/watch?v=Xdo8N8onpTs
 - https://www.scaler.com/topics/addition-of-two-numbers-in-python/
+- https://medium.com/age-of-awareness/user-input-data-types-in-python-4b12612bf4bb
+- https://www.mikedane.com/programming-languages/python/getting-user-input/
 
 ### Overcome challenges
 I didn't knew how to fix the error in exercise 1 that you get from trying to `+` a int and a str. I did some research and found an website that explained it.
@@ -44,6 +46,6 @@ I didn't knew how to fix the error in exercise 1 that you get from trying to `+`
 
 - Exercise 2:
 
-![](./../../../00_includes)
+![](./../../../00_includes/PRG03_screenshot_exercise_02.png)
 
 
