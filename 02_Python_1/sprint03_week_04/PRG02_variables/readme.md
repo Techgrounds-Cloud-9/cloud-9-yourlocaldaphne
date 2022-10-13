@@ -30,22 +30,24 @@ Exercise 3:
 
 
 ### Sources
-- 
+- https://www.w3schools.com/python/python_variables.asp
+- https://bobbyhadz.com/blog/python-print-variable-name#:~:text=To%20print%20a%20variable's%20name,to%20print%20the%20variable's%20name.
+- https://www.folkstalk.com/tech/python-print-value-and-variable-name-with-code-examples/
 
 ### Overcome challenges
-
+With exercise 2 it didn't work at first. I found out that I forgot a `,` between my lines so when I added `,` it worked!
 
 ### Results
 
-Exercise 1:
+- Exercise 1:
 
-![](./../../../00_includes/)
+![](./../../../00_includes/PRG02_screenshot_exercise_01.png)
 
-Exercise 2:
+- Exercise 2:
 
-![](./../../../00_includes/)
+![](./../../../00_includes/PRG02_screenshot_exercise_02.png)
 
-Exercise 3:
+- Exercise 3:
 
-![](./../../../00_includes/)
+![](./../../../00_includes/PRG02_screenshot_exercise_03.png)
 
