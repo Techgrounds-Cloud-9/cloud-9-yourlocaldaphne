@@ -1,8 +1,10 @@
-# [ Data types and comments ]
+# [ Loops ]
 
 
 ## Key terminology
-- 
+- Loops
+- While loops
+- For loops
 
 ## Exercise
 
@@ -22,13 +24,14 @@ Using the for loop, print the value of x multiplied by the value of i, for up to
 
 Exercise 3:
 - Create a new script.
-- Copy the array below into your script.
+- Copy the array below into your script.\
 `arr = ["Coen", "Casper", "Joshua", "Abdessamad", "Saskia"]`
 - Use a for loop to loop over the array. Print every name individually.
 
 
 ### Sources
-- 
+- https://www.w3schools.com/python/python_while_loops.asp
+- https://infopython.com/what-does-for-i-in-range-mean-in-python/#:~:text=To%20simply%20put%20it%2C%20python's,code%20to%20its%20core%20principles.
 
 ### Overcome challenges
 
@@ -37,11 +40,13 @@ Exercise 3:
 
 - Exercise 1:
 
-![](./../../../00_includes/)
+![](./../../../00_includes/PRG04_screenshot_exercise_01.png)
 
 
 - Exercise 2:
 
 ![](./../../../00_includes/)
 
+- Exercise 2:
 
+![](./../../../00_includes/)
