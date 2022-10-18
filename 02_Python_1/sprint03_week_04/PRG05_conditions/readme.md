@@ -23,6 +23,7 @@ Learning and using conditions for user input. Using loops till the user's input 
 - https://www.w3schools.com/python/python_conditions.asp
 - http://www2.lawrence.edu/fast/GREGGJ/CMSC210/loops/if-else.html
 - https://www.programiz.com/python-programming/if-elif-else
+- https://bobbyhadz.com/blog/python-keep-asking-for-user-input-until-valid#:~:text=To%20keep%20asking%20for%20user,break%20out%20of%20the%20loop.
 
 ### Overcome challenges
 I used `=` instead of `==` in exercise 1 and gave an error. I found the solutions while researching conditions.
