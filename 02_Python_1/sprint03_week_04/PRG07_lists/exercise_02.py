@@ -1,6 +1,3 @@
-from operator import ne
-from tkinter import N
-
 
 number_list = [5,10,15,20,25]
 
@@ -14,5 +11,3 @@ for i in range(len(number_list)):
         next = number_list[i + 1]
         print(current + next)
 
-
-    
