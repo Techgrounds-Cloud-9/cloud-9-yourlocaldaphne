@@ -1,15 +1,10 @@
-# [ Lists ]
-Learning and using lists.
+# [ Key value pairs ]
+
 
 ## Key terminology
-- Lists: 
-- Square brackets: The square brackets tell Python that this is a list comprehension, producing a list.
-- Loop: A for loop in Python is a control flow statement that is used to repeatedly execute a group of statements as long as the condition is satisfied.
-- Range: A sequence of numbers.
-- Array: They are containers which are able to store more than one item at the same time.
+- 
 
 ## Exercise
-
 - Exercise 1:
 - 
 
@@ -20,7 +15,10 @@ Learning and using lists.
 
 
 ### Sources
-- 
+- https://www.w3schools.com/python/gloss_python_loop_dictionary_items.asp
+- https://www.w3schools.com/python/python_dictionaries.asp
+- https://realpython.com/python-dicts/
+- https://www.geeksforgeeks.org/python-dictionary/
 
 ### Overcome challenges
 
@@ -29,10 +27,10 @@ Learning and using lists.
 
 - Exercise 1:
 
-![](./../../../00_includes/PRG07_screenshot_exercise_01.png)
+![](./../../../00_includes/PRG08_screenshot_exercise_01.png)
 
 #
 - Exercise 2:
 
-![](./../../../00_includes/PRG07_screenshot_exercise_02.png)
+![](./../../../00_includes)
 

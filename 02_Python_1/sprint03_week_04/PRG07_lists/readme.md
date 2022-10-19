@@ -2,7 +2,7 @@
 Learning and using lists.
 
 ## Key terminology
-- Lists: 
+- Lists: Lists are used to store multiple items in a single variable.
 - Square brackets: The square brackets tell Python that this is a list comprehension, producing a list.
 - Loop: A for loop in Python is a control flow statement that is used to repeatedly execute a group of statements as long as the condition is satisfied.
 - Range: A sequence of numbers.
