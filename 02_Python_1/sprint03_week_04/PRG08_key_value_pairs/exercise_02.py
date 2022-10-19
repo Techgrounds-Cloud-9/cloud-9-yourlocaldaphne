@@ -1,5 +1,6 @@
 import csv
-csv_file = open('PRG08_key_value_pairs.csv', 'r+')
+from re import A
+
 
 info = ["First name", "Last name", "Job title", "Company"]
 
@@ -17,9 +18,11 @@ Dict = [{
 
 print(Dict)
 
+csv_file = open('exercise_02.csv', 'a')
+
 writer = csv.writer(csv_file)
 writer.writerow(Dict.values())
 csv_file.close()
-csv_file = open('PRG08_key_value_pairs.csv', 'r')
+csv_file = open('exercise_02.csv', 'a')
 print(csv_file.read())
 
