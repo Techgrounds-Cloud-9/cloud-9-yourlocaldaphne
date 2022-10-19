@@ -1,6 +1,7 @@
 from array import array
+from tkinter.font import names
 
-arr = ["Coen", "Casper", "Joshua", "Abdessamad", "Saskia"]
+names = ["Coen", "Casper", "Joshua", "Abdessamad", "Saskia"]
 
-for x in arr:
-    print(x)
+for name in names:
+    print(name)

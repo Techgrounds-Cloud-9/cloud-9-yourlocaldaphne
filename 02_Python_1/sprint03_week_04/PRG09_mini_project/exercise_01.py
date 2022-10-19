@@ -10,5 +10,7 @@ def draw():
         if counter % 3 == 0:
             print()
 
+position = int(input())
+board[position] = "x"
 
 draw() 
