@@ -2,18 +2,18 @@
 Learning more about Python while creating a game. You can choose from number-guessing, rock-paper-scissors or tictactoe. For this project I choose tictactoe. the hardest game to make to challenge myself.
 
 ## Key terminology
-- if loop: 
-- while loop: 
-- variable: 
-- value: 
-- input: 
-- true/false: 
-- int: 
-- str: 
-- if: 
-- else:
-- except:
-- %: 
+- if loop: Python if Statement is used for decision-making operations. It contains a body of code which runs only when the condition given in the if statement is true. If the condition is false, then the optional else statement runs which contains some code for the else condition.
+- while loop: A while loop is a control flow statement which allows code to be executed repeatedly, depending on whether a condition is satisfied or not. As long as some condition is true, 'while' repeats everything inside the loop block. It stops executing the block if and only if the condition fails.
+- variable: A Python variable is a symbolic name that is a reference or pointer to an object. Once an object is assigned to a variable, you can refer to the object by that name. But the data itself is still contained within the object.
+- value: Values() is an inbuilt method in Python programming language that returns a view object. The view object contains the values of the dictionary, as a list.
+- input: Python input() function is used to take user input. By default, it returns the user input in form of a string.
+- true/false: The Python Boolean type is one of Python's built-in data types. It's used to represent the truth value of an expression. For example, the expression 1 <= 2 is True , while the expression 0 == 1 is False .==.
+- int: The int() function returns the numeric integer equivalent from a given expression. Expression whose numeric integer equivalent is returned.
+- str: The str() function converts values to a string form so they can be combined with other strings. The "print" function normally prints out one or more python items followed by a newline.
+- if:  It decides whether certain statements need to be executed or not. It checks for a given condition, if the condition is true, then the set of code present inside the ” if ” block will be executed otherwise not.
+- else: The else keyword is used in conditional statements (if statements), and decides what to do if the condition is False.
+- except: Except is used to catch and handle the exception(s) that are encountered in the try clause. else lets you code sections that should run only when no exceptions are encountered in the try clause.
+- %: The % symbol in Python is called the Modulo Operator. It returns the remainder of dividing the left hand operand by right hand operand. It's used to get the remainder of a division problem.
 
 ## Exercise
 - Tic-Tac-Toe:
