@@ -1,9 +1,13 @@
-# [ Cost Management ]
+# [ Advantages of the cloud ]
 Learning about the benefits of the cloud and consumption-base model.
 
 ## Key terminology
-- Cloud:\
- "The cloud" 
+- Marketing tool:\
+Marketing tools are techniques, resources and digital programs that can help companies promote their products and services effectively.
+- CapEx:\
+Capital expenditure (CapEx) is money that is spent to acquire, repair, update, or improve a fixed company asset, such as a building, business, or equipment.
+- OpEx:\
+An operational expenditure (Opex) is the money a company spends on an ongoing, day-to-day basis in order to run a business or system.
 #
 ## Exercise
 Study:
