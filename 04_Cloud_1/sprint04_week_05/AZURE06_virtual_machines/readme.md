@@ -1,68 +1,57 @@
-# [ Advantages of the cloud ]
-Learning about the benefits of the cloud and consumption-base model.
+# [ Azure Virtual Machines ]
+Learning about Azure Virtual Machines, how to make one and how to run server.
 
 ## Key terminology
-- Marketing tool:\
-Marketing tools are techniques, resources and digital programs that can help companies promote their products and services effectively.
-- CapEx:\
-Capital expenditure (CapEx) is money that is spent to acquire, repair, update, or improve a fixed company asset, such as a building, business, or equipment.
-- OpEx:\
-An operational expenditure (Opex) is the money a company spends on an ongoing, day-to-day basis in order to run a business or system.
+- Azure Virtual Machines:\
+An Azure virtual machine is an on-demand, scalable computer resource that is available in Azure. Virtual machines are generally used to host applications when the customer requires more control over the computing environment than what is offered by other compute resources.
+- NIC network security group:\
+A network security group (NSG) in Azure is the way to activate a rule or access control list (ACL), which will allow or deny network traffic to your virtual machine instances in a virtual network.
+- subnet:\
+A subnet is a range of IP addresses in the virtual network. You can divide a virtual network into multiple subnets for organization and security. Each NIC in a VM is connected to one subnet in one virtual network.
+- instance:\
+An instance in Azure can be understood as a Virtual Machine. Microsoft Azure Websites can be defined as a high-density, multi-tenancy platform.
+- Custom Data:\
+ Custom data is sent to the VM along with the other provisioning configuration information such as the new hostname, username, password, certificates and keys, etc.
+- cloud-init script:\
+cloud-init is a widely used approach to customize a Linux VM as it boots for the first time. You can use cloud-init to install packages and write files, or to configure users and security.
+
+
 #
 ## Exercise
-Study:
-- The 6 benefits of the Cloud
-- The consumption-based model
+- Log in bij je Azure Console.
+- Maak een VM met de volgende vereisten:\
+Ubuntu Server 20.04 LTS - Gen1\
+Size: Standard_B1ls\
+Allowed inbound ports:\
+HTTP (80)\
+SSH (22)\
+OS Disk type: Standard SSD\
+Networking: defaults\
+Boot diagnostics zijn niet nodig\
+Custom data: \
+	#!/bin/bash\
+sudo su\
+apt update\
+apt install apache2 -y\
+ufw allow 'Apache'\
+systemctl enable apache2\
+systemctl restart apache2
+- Controleer of je server werkt.
+- Let op! Vergeet na de opdracht niet alles weer weg te gooien. Je kan elk onderdeel individueel verwijderen, of je kan in 1 keer de resource group verwijderen.
 
 #
 ### Sources
-- https://learn.microsoft.com/en-us/azure/architecture/framework/cost/design-price
-- https://marczak.io/az-900/episode-04/cheat-sheet/
-- https://www.optisolbusiness.com/insight/6-advantages-of-microsoft-azure-cloud-services
-- https://www.business.qld.gov.au/running-business/digital-business/online-risk-security/cloud-computing/benefits
-- https://cloud.netapp.com/blog/azure-high-availability-basic-concepts-and-a-checklist
-- https://cloudcomputingtechnologies.com/key-advantages-of-cloud-agility/#:~:text=Cloud%20agility%20ensures%20that%20businesses,security%2C%20monitoring%2C%20and%20analysis.
-- 
-
+- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal
 
 #
 ### Overcome challenges
-I didn't knew enough about the topics yet so I did research to understand them better.
+No challenges.
 #
 
 ## Results 
 
+![](./../../../00_includes/AZURE06_screenshot_vm1.png)
 
-### The 6 benefits of the Cloud:
+![](./../../../00_includes/AZURE06_screenshot_vm2.png)
 
-- High Availability\
-High availability is a quality of computing infrastructure that allows it to continue functioning, even when some of its components fail.
-
-![](./../../../00_includes/AZURE03_screenshot_availability.png)
-
-- Scalability\
-Your business can scale up or scale down your operation and storage needs quickly to suit your situation, allowing flexibility as your needs change.
-
-- Elasticity\
-As the workload resource demands increase, we can go a step further and add rules that automatically add instances. As workload resource demands decrease; again, we could have rules that start to scale in those instances when it is safe to do so without giving the user a performance impact.
-
-![](./../../../00_includes/AZURE03_screenshot_scale_vs_elastic.png)
-- Agility\
-Cloud agility ensures that businesses are empowered to priorities issues. Instead of spending valuable time and heaps of money on provisioning and maintaining IT resources, cloud agility shifts emphasis to security, monitoring, and analysis.
-
-- Geo-distribution\
-For capacity-intensive workloads, users need fast, local access to data. Locate Regions near data users or data sources to minimize latency and network traffic while maximizing throughput.
-
-- Disaster recovery\
-Azure offers an end-to-end backup and disaster recovery solution that is simple, secure, scalable, and cost-effective – and can be integrated with on-premises data protection solutions. The Azure backup and disaster recovery solution is simple to architect, cloud-native, highly available, and resilient.
-
-#
-### The consumption-based model:
-
-- Consumption-based price:\
-You are charged for only what you use. This model is also known as the Pay-As-You-Go rate. \
-There are no upfront costs nor wasted resources. You pay for what you need and stop paying when you don't need it.
-
-![](./../../../00_includes/AZURE03_screenshot_consumption.png)
-#
-
+![](./../../../00_includes/AZURE06_screenshot_it_works.png)
