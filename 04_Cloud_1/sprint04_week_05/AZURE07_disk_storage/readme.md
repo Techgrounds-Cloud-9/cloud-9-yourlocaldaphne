@@ -1,68 +1,48 @@
-# [ Advantages of the cloud ]
-Learning about the benefits of the cloud and consumption-base model.
+# [ Disk Storage ]
+Learning more about VMs and Azure Disk storage.
 
 ## Key terminology
-- Marketing tool:\
-Marketing tools are techniques, resources and digital programs that can help companies promote their products and services effectively.
-- CapEx:\
-Capital expenditure (CapEx) is money that is spent to acquire, repair, update, or improve a fixed company asset, such as a building, business, or equipment.
-- OpEx:\
-An operational expenditure (Opex) is the money a company spends on an ongoing, day-to-day basis in order to run a business or system.
+- Managed Disks:\
+Azure managed disks are block-level storage volumes that are managed by Azure and used with Azure Virtual Machines. Managed disks are like a physical disk in an on-premises server but, virtualized.
+- Unmanaged Disks:\
+Unmanaged disk consists of three data services: Blob storage, File storage, and Queue storage. In an unmanaged disk, you manage the storage accounts that you use to store the virtual hard disk (VHD) files that correspond to your VM disks.
+- Shared disk:\
+Azure shared disks are the ability to connect managed disks to multiple VMs at the same time. Managed disks with shared disks enabled provide shared block storage that can be accessed by multiple VMs.
+
 #
 ## Exercise
-Study:
-- The 6 benefits of the Cloud
-- The consumption-based model
+- Start 2 Linux VMs. Zorgt dat je voor beide toegang hebt via SSH
+- Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
+- Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
+- Kijk op de tweede machine of je het bestand kan lezen.
+- Maak een snapshot van de schijf en probeer hier een nieuwe Disk mee te maken
+- Mount deze nieuwe Disk en bekijk het bestand. 
 
 #
 ### Sources
-- https://learn.microsoft.com/en-us/azure/architecture/framework/cost/design-price
-- https://marczak.io/az-900/episode-04/cheat-sheet/
-- https://www.optisolbusiness.com/insight/6-advantages-of-microsoft-azure-cloud-services
-- https://www.business.qld.gov.au/running-business/digital-business/online-risk-security/cloud-computing/benefits
-- https://cloud.netapp.com/blog/azure-high-availability-basic-concepts-and-a-checklist
-- https://cloudcomputingtechnologies.com/key-advantages-of-cloud-agility/#:~:text=Cloud%20agility%20ensures%20that%20businesses,security%2C%20monitoring%2C%20and%20analysis.
-- 
+- https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types
+- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal
+- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/attach-managed-disk-portal
+- https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable?tabs=azure-portal
 
 
 #
 ### Overcome challenges
-I didn't knew enough about the topics yet so I did research to understand them better.
+I didn't knew enough about the shared disks yet so I did research to understand them better. 
 #
 
 ## Results 
 
-
-### The 6 benefits of the Cloud:
-
-- High Availability\
-High availability is a quality of computing infrastructure that allows it to continue functioning, even when some of its components fail.
-
-![](./../../../00_includes/AZURE03_screenshot_availability.png)
-
-- Scalability\
-Your business can scale up or scale down your operation and storage needs quickly to suit your situation, allowing flexibility as your needs change.
-
-- Elasticity\
-As the workload resource demands increase, we can go a step further and add rules that automatically add instances. As workload resource demands decrease; again, we could have rules that start to scale in those instances when it is safe to do so without giving the user a performance impact.
-
-![](./../../../00_includes/AZURE03_screenshot_scale_vs_elastic.png)
-- Agility\
-Cloud agility ensures that businesses are empowered to priorities issues. Instead of spending valuable time and heaps of money on provisioning and maintaining IT resources, cloud agility shifts emphasis to security, monitoring, and analysis.
-
-- Geo-distribution\
-For capacity-intensive workloads, users need fast, local access to data. Locate Regions near data users or data sources to minimize latency and network traffic while maximizing throughput.
-
-- Disaster recovery\
-Azure offers an end-to-end backup and disaster recovery solution that is simple, secure, scalable, and cost-effective – and can be integrated with on-premises data protection solutions. The Azure backup and disaster recovery solution is simple to architect, cloud-native, highly available, and resilient.
-
+![](./../../../00_includes/AZURE07_screenshot_vm1_file.png)\
+First VM
 #
-### The consumption-based model:
-
-- Consumption-based price:\
-You are charged for only what you use. This model is also known as the Pay-As-You-Go rate. \
-There are no upfront costs nor wasted resources. You pay for what you need and stop paying when you don't need it.
-
-![](./../../../00_includes/AZURE03_screenshot_consumption.png)
+![](./../../../00_includes/AZURE07_screenshot_vm2_no_file.png)
+\
+There is no file on the second VM
+\
 #
+![](./../../../00_includes/AZURE07_screenshot_snapshot.png)\
+Snap shot
 
+![](./../../../00_includes/AZURE07_screenshot_snapshot_mnt.png)
+Mounted
