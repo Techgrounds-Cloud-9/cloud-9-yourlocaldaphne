@@ -1,48 +1,69 @@
-# [ Disk Storage ]
-Learning more about VMs and Azure Disk storage.
+# [ Virtual Network ]
+Learning more about VM, Vnet and subnets.
 
 ## Key terminology
-- Managed Disks:\
-Azure managed disks are block-level storage volumes that are managed by Azure and used with Azure Virtual Machines. Managed disks are like a physical disk in an on-premises server but, virtualized.
-- Unmanaged Disks:\
-Unmanaged disk consists of three data services: Blob storage, File storage, and Queue storage. In an unmanaged disk, you manage the storage accounts that you use to store the virtual hard disk (VHD) files that correspond to your VM disks.
-- Shared disk:\
-Azure shared disks are the ability to connect managed disks to multiple VMs at the same time. Managed disks with shared disks enabled provide shared block storage that can be accessed by multiple VMs.
+- VNet:\
+Azure Virtual Network (VNet) is the fundamental building block for your private network in Azure. VNet enables many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
+- UDR:\
+User Defined Routing (UDR)
+Each subnet in Azure can be linked to a UDR table used to define how traffic initiated in that subnet is routed. If no UDRs are defined, Azure uses default routes to allow traffic to flow from one subnet to another.
+- Point-to-site VPNs:\
+A Point-to-Site (P2S) VPN gateway connection lets you create a secure connection to your virtual network from an individual client computer. A P2S connection is established by starting it from the client computer.
+- Site-to-site VPNs:\
+A Site-to-Site VPN gateway connection is used to connect your on-premises network to an Azure virtual network over an IPsec/IKE (IKEv1 or IKEv2) VPN tunnel. This type of connection requires a VPN device located on-premises that has an externally facing public IP address assigned to it.
+- Azure Expressroute:\
+ExpressRoute lets you extend your on-premises networks into the Microsoft cloud over a private connection with the help of a connectivity provider. With ExpressRoute, you can establish connections to Microsoft cloud services, such as Microsoft Azure and Microsoft 365.
 
 #
-## Exercise
-- Start 2 Linux VMs. Zorgt dat je voor beide toegang hebt via SSH
-- Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
-- Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
-- Kijk op de tweede machine of je het bestand kan lezen.
-- Maak een snapshot van de schijf en probeer hier een nieuwe Disk mee te maken
-- Mount deze nieuwe Disk en bekijk het bestand. 
+## Exercise 1
+- Maak een Virtual Network met de volgende vereisten:\
+Region: West Europe\
+Name: Lab-VNet\
+IP range: 10.0.0.0/16\
+- Vereisten voor subnet 1:\
+Name: Subnet-1\
+IP Range: 10.0.0.0/24\
+Dit subnet mag geen route naar het internet hebben
+- Vereisten voor subnet 2:\
+Name: Subnet-2\
+IP Range: 10.0.1.0/24
+
+## Exercise 2
+- Maak een VM met de volgende vereisten:\
+Een apache server moet met de volgende custom data geïnstalleerd worden:\
+#!/bin/bash\
+sudo su\
+apt update\
+apt install apache2 -y\
+ufw allow 'Apache'\
+systemctl enable apache2\
+systemctl restart apache2\
+Er is geen SSH access nodig, wel HTTP
+- Subnet: Subnet-2\
+Public IP: Enabled
+- Controleer of je website bereikbaar is
+
 
 #
 ### Sources
-- https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types
-- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal
-- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/attach-managed-disk-portal
-- https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable?tabs=azure-portal
+- https://www.youtube.com/watch?v=zIdwpFZQfmk
+- https://learn.microsoft.com/nl-nl/azure/virtual-network/virtual-network-manage-subnet
+- https://learn.microsoft.com/nl-nl/azure/virtual-network/nat-gateway/nat-gateway-resource
 
 
 #
 ### Overcome challenges
-I didn't knew enough about the shared disks yet so I did research to understand them better. 
+At first the website didn't work, after some Googling I found out it was because I didn't had a NAT gateway, so I assigned Subnet-2 to the NAT gateway and it worked.
 #
 
 ## Results 
 
-![](./../../../00_includes/AZURE07_screenshot_vm1_file.png)\
-First VM
-#
-![](./../../../00_includes/AZURE07_screenshot_vm2_no_file.png)
-\
-There is no file on the second VM
-\
-#
-![](./../../../00_includes/AZURE07_screenshot_snapshot.png)\
-Snap shot
+![](./../../../00_includes/AZURE10_screenshot_subnets.png)
 
-![](./../../../00_includes/AZURE07_screenshot_snapshot_mnt.png)
-Mounted
+![](./../../../00_includes/AZURE10_screenshot_NATgateway.png)
+
+![](./../../../00_includes/AZURE10_screenshot_VM.png)
+
+![](./../../../00_includes/AZURE10_screenshot_VM_HTTP.png)
+
+![](./../../../00_includes/AZURE10_screenshot_it_works.png)
