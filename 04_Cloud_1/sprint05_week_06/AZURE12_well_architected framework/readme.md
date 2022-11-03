@@ -1,48 +1,118 @@
-# [ Disk Storage ]
-Learning more about VMs and Azure Disk storage.
+# [ Well Architected Framework ]
+Learning about the Wel Architected Framework of Azure, pillars and the cloud services.
 
 ## Key terminology
-- Managed Disks:\
-Azure managed disks are block-level storage volumes that are managed by Azure and used with Azure Virtual Machines. Managed disks are like a physical disk in an on-premises server but, virtualized.
-- Unmanaged Disks:\
-Unmanaged disk consists of three data services: Blob storage, File storage, and Queue storage. In an unmanaged disk, you manage the storage accounts that you use to store the virtual hard disk (VHD) files that correspond to your VM disks.
-- Shared disk:\
-Azure shared disks are the ability to connect managed disks to multiple VMs at the same time. Managed disks with shared disks enabled provide shared block storage that can be accessed by multiple VMs.
+- :\
+
+- :\
+
+- :\
+
 
 #
 ## Exercise
-- Start 2 Linux VMs. Zorgt dat je voor beide toegang hebt via SSH
-- Maak een Azure Managed Disk aan en koppel deze aan beide VMs tegelijk.
-- Creëer op je eerste machine een bestand en plaats deze op de Shared Disk.
-- Kijk op de tweede machine of je het bestand kan lezen.
-- Maak een snapshot van de schijf en probeer hier een nieuwe Disk mee te maken
-- Mount deze nieuwe Disk en bekijk het bestand. 
+Study:
+- Well-Architected Framework van Azure
+- Hoe je elke pilaar kan implementeren met cloud-diensten
+
 
 #
 ### Sources
-- https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types
-- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal
-- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/attach-managed-disk-portal
-- https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable?tabs=azure-portal
-
+- 
 
 #
 ### Overcome challenges
-I didn't knew enough about the shared disks yet so I did research to understand them better. 
+I didn't knew enough about the Well-Architected Framework yet so I did research.
 #
 
 ## Results 
 
-![](./../../../00_includes/AZURE07_screenshot_vm1_file.png)\
-First VM
-#
-![](./../../../00_includes/AZURE07_screenshot_vm2_no_file.png)
-\
-There is no file on the second VM
-\
-#
-![](./../../../00_includes/AZURE07_screenshot_snapshot.png)\
-Snap shot
+The Well Architected Framework is a guidance to improve the quality of a workload.
 
-![](./../../../00_includes/AZURE07_screenshot_snapshot_mnt.png)
-Mounted
+The framework is made out of 5 pillars:
+- Reliability\
+The ability of a system to recover from failures and continue to function.
+
+- Security\
+Protecting applications and data from threats.
+
+- Cost Optimization\
+Managing costs to maximize the value delivered.
+
+- Operational excellence\
+Operations processes that keep a system running in production.
+
+- Performance efficiency\
+The ability of a system to adapt to changes in load.
+
+Why this framework?\
+You gotta know what trade off to make to ensure the quality. You want to keep using this framework to improve as much as you can. 
+
+Six supporting elements surrounding the Well Architected Framework:
+- Azure Well-Architected Review
+- Azure Advisor
+- Documentation
+- Partners, Support, and Services Offers
+- Reference Architectures
+- Design Principles
+
+![](./../../../00_includes/AZURE12_screenshot_overview.png)
+# 
+
+It is recommended by Microsoft to use the Azure Advisor and Advisor Score to identify and prioritize ways to improve your workload.\
+Both services align to the five pillar of the Well Architected Framework. 
+
+- Azure Advisor\
+Is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource configuration and usage telemetry. It recommends solutions that can help you improve the reliability, security, cost effectiveness, performance, and operational excellence of your Azure resources.
+
+- Advisor Score\
+Is a core feature of Azure Advisor that collects Advisor recommendations into a simple, actionable score. This score enables you to tell at a glance if you're taking the necessary steps to build reliable, secure, and cost-efficient solutions, and to prioritize the actions that will yield the biggest improvement to the posture of your workloads. The Advisor score consists of an overall score, which can be further broken down into five category scores corresponding to each of the Well-Architected pillars.
+#
+## Reliability
+A reliable workload is one that is both resilient and available.
+- Resiliency is the ability of the system to recover from failures and continue to function.
+- Availability is whether your users can access your workload when they need to.
+
+For an overview of reliability principles, reference: https://learn.microsoft.com/en-us/azure/architecture/framework/resiliency/principles
+
+#
+## Security
+Security follows throughout the entire lifecycle of an application; from design, implementation, deployment and operations.\
+Azure provides protection against threats such as network intrusion and DDoS attacks, but you still need to build security into your applications and processes.\
+Consider the following broad security areas:
+- Identity management
+- Protect your infrastructure
+- Application security
+- Data sovereignty and encryption
+- Security resources
+#
+## Cost optimization
+When you're designing a cloud solution, focus on generating incremental value early. Apply the principles of Build-Measure-Learn, to accelerate your time to market while avoiding capital-intensive solutions.\
+The following topics offer cost optimization guidance as you develop the Well-Architected Framework for your workload:
+
+- Review cost principles
+- Develop a cost model
+- Create budgets and alerts
+- Review the cost optimization checklist
+
+#
+## Operational excellence
+Operational excellence covers the operations and processes that keep an application running in production. Deployments must be reliable and predictable. Automate deployments to reduce the chance of human error. Fast and routine deployment processes won't slow down the release of new features or bug fixes. Equally important, you must quickly roll back or roll forward if an update has problems.\
+
+The following topics provide guidance on designing and implementing DevOps practices for your Azure workload:
+
+- Design patterns for operational excellence
+- Best practices: Monitoring and diagnostics
+#
+## Performance efficiency
+Performance efficiency is the ability of your workload to scale to meet the demands placed on it by users in an efficient manner. The main ways to achieve performance efficiency include using scaling appropriately and implementing PaaS offerings that have scaling built in.\
+
+The following topics offer guidance on how to design and improve the performance efficiency posture of your Azure workload:
+
+- Design patterns for performance efficiency
+- Best practices:
+- Autoscaling
+- Background jobs
+- Caching
+- CDN
+- Data partitioning
