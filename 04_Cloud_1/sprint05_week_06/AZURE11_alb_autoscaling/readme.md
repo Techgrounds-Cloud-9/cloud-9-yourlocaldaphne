@@ -37,8 +37,9 @@ Verwijder een VM bij 30% CPU gebruik
 
 #
 ### Sources
-- 
-- 
+- https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview
+- https://learn.microsoft.com/en-us/azure/architecture/best-practices/auto-scaling
+- https://learn.microsoft.com/en-us/azure/load-testing/quickstart-create-and-run-load-test
 
 #
 ### Overcome challenges

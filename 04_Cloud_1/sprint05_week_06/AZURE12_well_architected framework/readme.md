@@ -2,12 +2,8 @@
 Learning about the Wel Architected Framework of Azure, pillars and the cloud services.
 
 ## Key terminology
-- :\
-
-- :\
-
-- :\
-
+- Cloud provider:\
+A cloud service provider is a third-party company offering a cloud-based platform, infrastructure, application, or storage services.
 
 #
 ## Exercise
@@ -15,10 +11,9 @@ Study:
 - Well-Architected Framework van Azure
 - Hoe je elke pilaar kan implementeren met cloud-diensten
 
-
 #
 ### Sources
-- 
+- https://learn.microsoft.com/en-us/azure/architecture/framework/
 
 #
 ### Overcome challenges
