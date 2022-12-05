@@ -1,6 +1,13 @@
 param location string = 'westeurope'
 param nameSpace string
 param bootstrapScript string = ''
+param vmSize string
+param serverType string
+param OSversion string
+param adminUsername string
+param adminKey string
+param keyVaultName string
+param encryptionKey string = newGuid()
 
 resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = if (!empty(bootstrapScript)) {
   name: 'st${nameSpace}'
@@ -24,7 +31,7 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
   parent: service
 }
 
-resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = if (!empty(bootstrapScript)) {
   name: 'deployscript-upload-blob'
   location: location
   kind: 'AzureCLI'
@@ -46,7 +53,49 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   }
 }
 
+resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+  name: keyVaultName
+}
+
+resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+  name: 'vm-${nameSpace}-disk'
+  parent: kv
+  properties: {
+    value: encryptionKey
+  }
+}
+
 resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
   name: 'vm-${nameSpace}'
   location: location
+  properties: {
+    hardwareProfile: {
+      vmSize: vmSize
+    }
+    storageProfile: {
+      imageReference: {
+        offer: serverType
+        sku: OSversion
+        version: 'latest'
+      }
+      osDisk: {
+        createOption: 'FromImage'
+        encryptionSettings: {
+          enabled: true
+          diskEncryptionKey: {
+            secretUrl: diskEncryptionSecret.properties.secretUri
+            sourceVault: {
+              id: kv.id
+            }
+          }
+        }
+      }
+    }
+    osProfile: {
+      computerName: 'vm-${nameSpace}'
+      adminUsername: adminUsername
+      adminPassword: adminKey
+      customData: base64(bootstrapScript)
+    }
+  }
 }
