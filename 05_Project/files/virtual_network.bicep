@@ -1,4 +1,4 @@
-param location string = 'westeurope'
+param location string 
 param addressSpace string
 param nameSpace string
 param securityRules array

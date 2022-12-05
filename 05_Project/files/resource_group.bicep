@@ -1,8 +1,8 @@
 targetScope = 'subscription'
-param resourceGroupName string = 'rg-project'
-param resourceGroupLocation string = 'westeurope'
+param name string 
+param location string 
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: resourceGroupName
-  location: resourceGroupLocation
+  name: name
+  location: location
 }

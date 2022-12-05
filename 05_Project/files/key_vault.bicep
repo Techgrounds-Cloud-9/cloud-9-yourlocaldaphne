@@ -1,4 +1,4 @@
-param location string = 'westeurope'
+param location string 
 
 
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {

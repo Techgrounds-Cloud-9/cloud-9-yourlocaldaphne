@@ -1,4 +1,4 @@
-param location string = 'westeurope'
+param location string
 param nameSpace string
 param bootstrapScript string = ''
 param vmSize string
