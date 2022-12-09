@@ -56,10 +56,12 @@ param subnetId string
 //   }
 // }
 
+// Caling Key Vault
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
 }
 
+//Creating encryption for the Virtual Machine's disk.
 resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   name: 'vm-${nameSpace}-disk'
   parent: kv
@@ -73,6 +75,7 @@ resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   }
 }
 
+// The Virtual Machine with it's coresponding subnet and IP.
 resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
   name: 'vm-${nameSpace}'
   location: location

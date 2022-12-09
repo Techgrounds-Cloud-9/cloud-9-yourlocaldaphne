@@ -4,6 +4,7 @@ param nameSpace string
 param securityRules array = []
 param peeredVnetId string = ''
 
+// Network Security Group with security rules.
 resource nsg 'Microsoft.Network/networkSecurityGroups@2022-05-01' = {
   name: 'nsg-${nameSpace}'
   location: location
@@ -12,6 +13,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2022-05-01' = {
   }
 }
 
+// Virtual Network with one subnet that depends on the Network Security Group.
 resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' = {
   name: 'vnet-${nameSpace}'
   location: location
@@ -36,7 +38,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' = {
   }
 }
 
-//needs 2 vnet
+//Peering made for the two Virtual Networks
 resource peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = if (!empty(peeredVnetId)) {
   name: 'peer-${nameSpace}'
   parent: vnet

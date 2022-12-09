@@ -1,11 +1,3 @@
-// module rg './resource_gromain-221208-1512up.bicep' = {
-//   scope: subscription()
-//   name: 'resourceGroupDeploy'
-//   params: {
-//     name: 'rg-project'
-//     location: 'westeurope'
-//   }
-// }
 targetScope = 'subscription'
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
