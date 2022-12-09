@@ -1,7 +1,8 @@
-param location string 
+param location string
 param addressSpace string
 param nameSpace string
-param securityRules array
+param securityRules array = []
+param peeredVnetId string = ''
 
 resource nsg 'Microsoft.Network/networkSecurityGroups@2022-05-01' = {
   name: 'nsg-${nameSpace}'
@@ -25,9 +26,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' = {
       {
         name: 'snet-${nameSpace}'
         properties: {
-          addressPrefixes: [
-            addressSpace
-          ]
+          addressPrefix: addressSpace
           networkSecurityGroup: {
             id: nsg.id
           }
@@ -37,8 +36,15 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' = {
   }
 }
 
-// need total of 2 vnets and 2 subnets
-// NSG needs to protect subnets
-// public ip, http/https ports open, auto install apache 
+//needs 2 vnet
+resource peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = if (!empty(peeredVnetId)) {
+  name: 'peer-${nameSpace}'
+  parent: vnet
+  properties: {
+    remoteVirtualNetwork: {
+      id: peeredVnetId
+    }
+  }
+}
 
-// De volgende IP ranges worden gebruikt: 10.10.10.0/24 & 10.20.20.0/24
+output subnetId string = vnet.properties.subnets[0].id
