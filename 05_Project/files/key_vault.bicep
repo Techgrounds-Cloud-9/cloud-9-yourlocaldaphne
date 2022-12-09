@@ -1,7 +1,7 @@
 param location string
 
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
-  name: 'kv-project-daphne-07'
+  name: 'kv-project-daphne-10'
   location: location
   properties: {
     accessPolicies: []

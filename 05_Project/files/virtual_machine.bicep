@@ -97,7 +97,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
                     properties: {
                       deleteOption: 'Delete'
                       publicIPAddressVersion: 'IPv4'
-                      publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional operator, very nice
+                      publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional or ternary operator, very nice
                     }
                   }
                 }
