@@ -10,7 +10,7 @@ Requirements for v1.0:
 - The admin/management server must be reachable with a public IP.
 - The admin/management server should only be reachable from trusted locations (office/admin's home)
 - The following IP ranges are used: 10.10.10.0/24 & 10.20.20.0/24
-- All subnets must be protected by a subnet level firewall (NSG?).
+- All subnets must be protected by a subnet level firewall (NSG).
 - SSH or RDP connections to the web server may only be established from the admin server.
 - Propose or implement improvements in the architecture are okay if it can be done within the deadline.
 

@@ -12,49 +12,49 @@ param encryptionKey string = newGuid() //generates random string
 param staticIp bool = false
 param subnetId string
 
-// resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = if (!empty(bootstrapScript)) {
-//   name: 'st${nameSpace}'
-//   location: location
-//   sku: {
-//     name: 'Standard_LRS'
-//   }
-//   kind: 'StorageV2'
-//   properties: {
-//     accessTier: 'Cool'
-//   }
-// }
+resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+  name: 'st${nameSpace}'
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    accessTier: 'Cool'
+  }
+}
 
-// resource service 'Microsoft.Storage/storageAccounts/blobServices@2022-05-01' = if (!empty(bootstrapScript)) {
-//   name: 'default'
-//   parent: st
-// }
+resource service 'Microsoft.Storage/storageAccounts/blobServices@2022-05-01' = {
+  name: 'default'
+  parent: st
+}
 
-// resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = if (!empty(bootstrapScript)) {
-//   name: 'bootstraps'
-//   parent: service
-// }
+resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = {
+  name: 'bootstraps'
+  parent: service
+}
 
-// resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = if (!empty(bootstrapScript)) {
-//   name: 'deployscript-upload-blob'
-//   location: location
-//   kind: 'AzureCLI'
-//   properties: {
-//     azCliVersion: '2.42.0'
-//     timeout: 'PT5M' // Times out after 5 minutes
-//     retentionInterval: 'PT5M' // ISO 8601 duration for 5 minutes, then deletes it
-//     environmentVariables: [
-//       {
-//         name: 'AZURE_STORAGE_ACCOUNT'
-//         value: st.name
-//       }
-//       {
-//         name: 'AZURE_STORAGE_KEY'
-//         secureValue: st.listKeys().keys[0].value
-//       }
-//     ]
-//     scriptContent: 'echo "${bootstrapScript}" > ${vm.name}-bootstrap && az storage blob upload -f ${vm.name}-bootstrap -c ${container.name} -n ${vm.name}-bootstrap'
-//   }
-// }
+resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: 'deployscript-upload-blob'
+  location: location
+  kind: 'AzureCLI'
+  properties: {
+    azCliVersion: '2.42.0'
+    timeout: 'PT5M' // Times out after 5 minutes
+    retentionInterval: 'PT1H' // ISO 8601 duration for 5 minutes, then deletes it
+    environmentVariables: [
+      {
+        name: 'AZURE_STORAGE_ACCOUNT'
+        value: st.name
+      }
+      {
+        name: 'AZURE_STORAGE_KEY'
+        secureValue: st.listKeys().keys[0].value
+      }
+    ]
+    scriptContent: 'echo "${bootstrapScript}" > ${vm.name}-bootstrap && az storage blob upload -f ${vm.name}-bootstrap -c ${container.name} -n ${vm.name}-bootstrap'
+  }
+}
 
 // Caling Key Vault
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
@@ -71,7 +71,6 @@ resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   }
   properties: {
     value: encryptionKey
-
   }
 }
 

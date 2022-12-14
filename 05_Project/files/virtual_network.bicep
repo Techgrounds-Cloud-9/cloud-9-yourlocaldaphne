@@ -39,7 +39,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-05-01' = {
 }
 
 //Peering made for the two Virtual Networks
-resource peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = if (!empty(peeredVnetId)) {
+resource peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = if (!empty(peeredVnetId)) { 
   name: 'peer-${nameSpace}'
   parent: vnet
   properties: {
@@ -50,3 +50,5 @@ resource peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-
 }
 
 output subnetId string = vnet.properties.subnets[0].id
+output vnetName string = vnet.name
+output vnetId string = vnet.id
