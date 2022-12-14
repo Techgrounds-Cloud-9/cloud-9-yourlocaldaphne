@@ -48,6 +48,17 @@ module peering_webserver './peering.bicep' = {
   }
 }
 
+module backup './backup.bicep' = {
+  scope: rg
+  name: 'backupDeploy'
+  params: {
+    rsvName: 'recoveryServiveVault'
+    bkpolName: 'backupPolicy'
+    location: 'westeurope'
+    protectedItemName: 'protectedItem'
+  }
+}
+
 module vm_webserver './virtual_machine.bicep' = {
   scope: rg
   name: 'virtualMachineWebserverDeploy'
@@ -101,7 +112,7 @@ module peering_adminserver './peering.bicep' = {
   }
 }
 
-module vm_adminserver './virtual_machine.bicep' = {
+module vm_adminserver './admin_virtual_machine.bicep' = {
   scope: rg
   name: 'virtualMachineAdminserverDeploy'
   params: {
