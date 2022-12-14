@@ -2,7 +2,7 @@ param location string
 
 // Key Vault for storing the encryption of the Virtual Machines.
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
-  name: 'kv-project-daphne-29'
+  name: 'kv-project-daphne-30'
   location: location
   properties: {
     accessPolicies: []
