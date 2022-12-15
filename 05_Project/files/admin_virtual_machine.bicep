@@ -32,7 +32,7 @@ resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
 
 // The Virtual Machine with it's coresponding subnet and IP.
 resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
-  name: 'vm-${nameSpace}'
+  name: nameSpace
   location: location
   properties: {
     networkProfile: {
@@ -108,5 +108,32 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
     publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional operator, very nice
   }
 }
+
+// resource usrDaphne 'Microsoft.ApiManagement/service/users@2021-12-01-preview' = {
+//   name: 'users-${nameSpace}-daphne'
+//   properties: {
+//     email: 'daphnedemoet@gmail.com'
+//     firstName: 'Daphne'
+//     lastName: 'Demoet'
+//   }
+// }
+
+// resource usrTanuja 'Microsoft.ApiManagement/service/users@2021-12-01-preview' = {
+//   name: 'users-${nameSpace}-tanuja'
+//   properties: {
+//     email: 'tanuja.dubba@gmail.com'
+//     firstName: 'Tanuja'
+//     lastName: 'Dubba'
+//   }
+// }
+
+// resource usrSait 'Microsoft.ApiManagement/service/users@2021-12-01-preview' = {
+//   name: 'users-${nameSpace}-sait'
+//   properties: {
+//     email: 'saitbaserr@gmail.com'
+//     firstName: 'Sait'
+//     lastName: 'Baserr'
+//   }
+// }
 
 output vmName string = vm.name

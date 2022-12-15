@@ -16,19 +16,19 @@ Requirements for v1.0:
 
 #
 ### Understanding document
-- 2 servers web server and admin/management server, so 2 VMs(1 window, 1 linux) in 2 availability zones (same region).
-- They are residing on 2 virtual networks and in their respective subnets. 
-- Both the subnets have their own set of NSG rules . 
-- The 2 Vnets are connected.
-- Both subnets must be protected by NSG on the subnet level. 
-- The web server should be accessible with a public ip for the public and via admin/management server. Http ports open. 
+- 2 servers web server and admin/management server, so 2 VMs(1 window, 1 linux) in 2 availability zones (same region). Done
+- They are residing on 2 virtual networks and in their respective subnets. Done
+- Both the subnets have their own set of NSG rules . Done
+- The 2 Vnets are connected. Done
+- Both subnets must be protected by NSG on the subnet level. Done
+- The web server should be accessible with a public ip for the public and via admin/management server. Http ports open. Done
 - It will automatically install the apache server.
-- The admin server can access the web server using the SSH/RDP and has a public ip address to be accessed by a set of users. 
-- A set of ip addresses from which you need to provide access to admin server, ranges: 10.10.10.0/24 & 10.20.20.0/24. 
-- Public static, private dynamic.
+- The admin server can access the web server using the SSH/RDP and has a public ip address to be accessed by a set of users. RDP active, no users yet
+- A set of ip addresses from which you need to provide access to admin server, ranges: 10.10.10.0/24 & 10.20.20.0/24. Done
+- Public static, private dynamic. Done
 - The web server should be backed up daily and the backup should be available for 7 days.
-- The storage account has a post deployment script.(bootstrap script)
-- The AAD integrated with and users need to be added. 
+- The storage account has a post deployment script.(bootstrap script) not yet
+- The AAD integrated with and users need to be added. no users added yet
 
 #
 ### Resources needed

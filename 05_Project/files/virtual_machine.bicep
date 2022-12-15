@@ -11,6 +11,61 @@ param keyVaultName string
 param encryptionKey string = newGuid() //generates random string
 param staticIp bool = false
 param subnetId string
+param rsvName string 
+param bkpolName string 
+var backupFabric = 'Azure'
+var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
+var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
+
+resource rsv 'Microsoft.RecoveryServices/vaults@2022-02-01' = {
+  name: rsvName
+  location: location
+  sku: {
+    name: 'RS0'
+    tier: 'Standard'
+  }
+  properties: {}
+}
+
+//Backup policies
+resource bkpol 'Microsoft.RecoveryServices/vaults/backupPolicies@2022-09-01-preview' = {
+  name: bkpolName
+  location: location
+  parent: rsv
+  properties: {
+    backupManagementType: 'AzureIaasVM'
+    instantRpRetentionRangeInDays: 2
+    schedulePolicy: {
+      scheduleRunFrequency: 'Daily'
+      scheduleRunTimes: [
+        '21:00'
+      ]
+      schedulePolicyType: 'SimpleSchedulePolicy'
+    }
+    retentionPolicy: {
+      dailySchedule: {
+        retentionTimes: [
+          '21:00'
+        ]
+        retentionDuration: {
+          count: 7
+          durationType: 'Days'
+        }
+      }
+      retentionPolicyType: 'LongTermRetentionPolicy'
+    }
+    timeZone: 'W. Europe Standard Time'
+  }
+}
+
+resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2022-09-01-preview' = {
+  name: '${rsvName}/${backupFabric}/${protectionContainer}/${protectedItem}'
+  properties: {
+    protectedItemType: 'Microsoft.Compute/virtualMachines'
+    policyId: '${rsv.id}/backupPolicies/${bkpolName}'
+    sourceResourceId: vm.id
+  }
+} 
 
 resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: 'st${nameSpace}'
@@ -30,7 +85,7 @@ resource service 'Microsoft.Storage/storageAccounts/blobServices@2022-05-01' = {
 }
 
 resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = {
-  name: 'bootstraps'
+  name: 'bootstrapscripts'
   parent: service
 }
 
@@ -76,7 +131,7 @@ resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
 
 // The Virtual Machine with it's coresponding subnet and IP.
 resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
-  name: 'vm-${nameSpace}'
+  name: nameSpace
   location: location
   properties: {
     networkProfile: {
@@ -154,3 +209,5 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
 }
 
 output vmName string = vm.name
+// output vmId string = vm.id
+// output rsv string = rsv.id

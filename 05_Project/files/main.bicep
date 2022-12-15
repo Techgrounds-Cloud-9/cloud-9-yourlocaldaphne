@@ -48,17 +48,6 @@ module peering_webserver './peering.bicep' = {
   }
 }
 
-// module backup './backup.bicep' = {
-//   scope: rg
-//   name: 'backupDeploy'
-//   params: {
-//     rsvName: 'recoveryServiveVault'
-//     bkpolName: 'backupPolicy'
-//     location: 'westeurope'
-//     protectedItemName: 'protectedItem'
-//   }
-// }
-
 module vm_webserver './virtual_machine.bicep' = {
   scope: rg
   name: 'virtualMachineWebserverDeploy'
@@ -74,6 +63,8 @@ module vm_webserver './virtual_machine.bicep' = {
     adminKey: 'DaphneProject123!'
     keyVaultName: kv.outputs.keyVaultName
     staticIp: true
+    rsvName: 'web-recovery'
+    bkpolName: 'web-backup'
   }
 }
 
