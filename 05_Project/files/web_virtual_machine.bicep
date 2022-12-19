@@ -13,18 +13,30 @@ param staticIp bool = false
 param subnetId string
 param rsvName string 
 param bkpolName string 
+
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
 var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
 
+
 resource rsv 'Microsoft.RecoveryServices/vaults@2022-02-01' = {
   name: rsvName
   location: location
+  identity: {
+    type: 'UserAssigned'
+  }
   sku: {
     name: 'RS0'
     tier: 'Standard'
   }
-  properties: {}
+  properties: {
+    // encryption: {
+    //   kekIdentity: {
+    //     userAssignedIdentity: ''
+    //   }
+    // }
+  }
+  
 }
 
 //Backup policies
@@ -67,6 +79,7 @@ resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.Rec
   }
 } 
 
+//Storage account to store the bootstrapscript in
 resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: 'st${nameSpace}'
   location: location
@@ -79,16 +92,19 @@ resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   }
 }
 
+//Blob for bootstrapscript
 resource service 'Microsoft.Storage/storageAccounts/blobServices@2022-05-01' = {
   name: 'default'
   parent: st
 }
 
+//Container for bootstrapscript
 resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-05-01' = {
   name: 'bootstrapscripts'
   parent: service
 }
 
+//Deployment script for the bootstrapscript
 resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'deployscript-upload-blob'
   location: location
@@ -209,5 +225,5 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
 }
 
 output vmName string = vm.name
-// output vmId string = vm.id
+output vmId string = vm.id
 // output rsv string = rsv.id

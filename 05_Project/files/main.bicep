@@ -9,6 +9,7 @@ module kv './key_vault.bicep' = {
   scope: rg
   name: 'keyVaultDeploy'
   params: {
+    kvName: 'kv-project-daphne-60'
     location: 'westeurope'
   }
 }
@@ -48,7 +49,7 @@ module peering_webserver './peering.bicep' = {
   }
 }
 
-module vm_webserver './virtual_machine.bicep' = {
+module vm_webserver './web_virtual_machine.bicep' = {
   scope: rg
   name: 'virtualMachineWebserverDeploy'
   params: {
