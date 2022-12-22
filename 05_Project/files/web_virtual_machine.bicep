@@ -7,39 +7,76 @@ param publisher string
 param OSversion string
 param adminUsername string
 param adminKey string
-param keyVaultName string
+// param keyVaultName string
+param kvName string
 param encryptionKey string = newGuid() //generates random string
 param staticIp bool = false
 param subnetId string
-param rsvName string 
-param bkpolName string 
+param rsvName string
+param bkpolName string
+param rgName string
+// param userName string
 
 var backupFabric = 'Azure'
 var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
 var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
 
+var extensionName = 'AzureDiskEncryption'
+var keyVaultResourceID = resourceId(rgName, 'Microsoft.KeyVault/vaults/', kvName)
+
+// resource uai 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
+//   name: userName
+//   location: location
+// }
+
+// Key Vault for storing the encryption of the Virtual Machines.
+resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
+  name: kvName
+  location: location
+  properties: {
+    accessPolicies: [
+      {
+        objectId: rsv.identity.principalId
+        tenantId: tenant().tenantId
+        permissions: {
+          keys: [
+            'all'
+          ]
+          secrets: [
+            'all'
+          ]
+          storage: [
+            'all'
+          ]
+        }
+      }
+    ]
+    enabledForDiskEncryption: true
+    enabledForDeployment: true
+    enabledForTemplateDeployment: true
+    enablePurgeProtection: true
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    tenantId: tenant().tenantId
+  }
+}
 
 resource rsv 'Microsoft.RecoveryServices/vaults@2022-02-01' = {
   name: rsvName
   location: location
   identity: {
-    type: 'UserAssigned'
+    type: 'SystemAssigned'
   }
   sku: {
     name: 'RS0'
     tier: 'Standard'
   }
   properties: {
-    // encryption: {
-    //   kekIdentity: {
-    //     userAssignedIdentity: ''
-    //   }
-    // }
   }
-  
 }
 
-//Backup policies
 resource bkpol 'Microsoft.RecoveryServices/vaults/backupPolicies@2022-09-01-preview' = {
   name: bkpolName
   location: location
@@ -77,7 +114,7 @@ resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.Rec
     policyId: '${rsv.id}/backupPolicies/${bkpolName}'
     sourceResourceId: vm.id
   }
-} 
+}
 
 //Storage account to store the bootstrapscript in
 resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = {
@@ -128,20 +165,27 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
 }
 
 // Caling Key Vault
-resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
-  name: keyVaultName
-}
+// resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+//   name: keyVaultName
+// }
 
-//Creating encryption for the Virtual Machine's disk.
-resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
-  name: 'vm-${nameSpace}-disk'
-  parent: kv
-  tags: {
-    DiskEncryptionKeyFileName: 'encryptionKeyProject'
-    DiskEncryptionKeyEncryptionAlgorithm: 'RSA-OAEP'
-  }
+resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = {
+  name: '${nameSpace}/${extensionName}'
+  location: location
   properties: {
-    value: encryptionKey
+    publisher: 'Microsoft.Azure.Security'
+    type: 'AzureDiskEncryption'
+    typeHandlerVersion: '2.2'
+    autoUpgradeMinorVersion: true
+    forceUpdateTag: '1.0'
+    settings: {
+      EncryptionOperation: 'EnableEncryption'
+      KeyVaultURL: reference(kv.id, '2019-09-01').vaultUri
+      KeyVaultResourceId: keyVaultResourceID
+      KeyEncryptionAlgorithm: 'RSA-OAEP'
+      VolumeType: 'All'
+      ResizeOSDisk: false
+    }
   }
 }
 
@@ -149,6 +193,9 @@ resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
 resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
   name: nameSpace
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
   properties: {
     networkProfile: {
       networkApiVersion: '2020-11-01'
@@ -190,15 +237,15 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
       }
       osDisk: {
         createOption: 'FromImage'
-        encryptionSettings: {
-          enabled: true
-          diskEncryptionKey: {
-            secretUrl: diskEncryptionSecret.properties.secretUriWithVersion
-            sourceVault: {
-              id: kv.id
-            }
-          }
-        }
+        // encryptionSettings: {
+          // enabled: true
+          // diskEncryptionKey: {
+          //   secretUrl: diskEncryptionSecret.properties.secretUriWithVersion
+          //   sourceVault: {
+          //     id: kv.id
+          //   }
+          // }
+        // }
       }
     }
     osProfile: {
@@ -226,4 +273,9 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
 
 output vmName string = vm.name
 output vmId string = vm.id
-// output rsv string = rsv.id
+output rsvIdentity string = rsv.identity.principalId
+output rsvId string = rsv.id
+output rsvName string = rsv.name
+output kvName string = kv.name
+output kvId string = kv.id
+// output userManagedId string = uai.properties.principalId

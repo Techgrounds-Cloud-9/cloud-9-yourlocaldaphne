@@ -5,14 +5,15 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: 'westeurope'
 }
 
-module kv './key_vault.bicep' = {
-  scope: rg
-  name: 'keyVaultDeploy'
-  params: {
-    kvName: 'kv-project-daphne-60'
-    location: 'westeurope'
-  }
-}
+// module kv './key_vault.bicep' = {
+//   scope: rg
+//   name: 'keyVaultDeploy'
+//   params: {
+//     kvName: 'kv-project-daphne-79'
+//     location: 'westeurope'
+//     rsvName: vm_webserver.outputs.rsv.name
+//   }
+// }
 
 module vnet_webserver './virtual_network.bicep' = {
   scope: rg
@@ -62,10 +63,13 @@ module vm_webserver './web_virtual_machine.bicep' = {
     OSversion: '19.04'
     adminUsername: 'Daphne'
     adminKey: 'DaphneProject123!'
-    keyVaultName: kv.outputs.keyVaultName
+    // keyVaultName: kv.outputs.keyVaultName
     staticIp: true
-    rsvName: 'web-recovery'
+    rsvName: 'webserver'
     bkpolName: 'web-backup'
+    kvName: 'kv-project-daphne-83'
+    rgName: rg.name
+    // userName: 'user-daphne'
   }
 }
 
@@ -117,7 +121,8 @@ module vm_adminserver './admin_virtual_machine.bicep' = {
     OSversion: '2019-Datacenter'
     adminUsername: 'Daphne'
     adminKey: 'DaphneProject123!'
-    keyVaultName: kv.outputs.keyVaultName
+    keyVaultName: vm_webserver.outputs.kvName
     staticIp: false
+    rgName: rg.name
   }
 }

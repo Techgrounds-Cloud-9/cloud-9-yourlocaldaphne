@@ -11,24 +11,48 @@ param keyVaultName string
 param encryptionKey string = newGuid() //generates random string
 param staticIp bool = false
 param subnetId string
+param rgName string
+
+var extensionName = 'AzureDiskEncryption'
+var keyVaultResourceID = resourceId(rgName, 'Microsoft.KeyVault/vaults/', kv.name)
 
 // Caling Key Vault
 resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
 }
 
-//Creating encryption for the Virtual Machine's disk.
-resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
-  name: 'vm-${nameSpace}-disk'
-  parent: kv
-  tags: {
-    DiskEncryptionKeyFileName: 'encryptionKeyProject'
-    DiskEncryptionKeyEncryptionAlgorithm: 'RSA-OAEP'
-  }
+resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = {
+  name: '${nameSpace}/${extensionName}'
+  location: location
   properties: {
-    value: encryptionKey
+    publisher: 'Microsoft.Azure.Security'
+    type: 'AzureDiskEncryptionForLinux'
+    typeHandlerVersion: '1.1'
+    autoUpgradeMinorVersion: true
+    forceUpdateTag: '1.0'
+    settings: {
+      EncryptionOperation: 'EnableEncryption'
+      KeyVaultURL: reference(kv.id, '2019-09-01').vaultUri
+      KeyVaultResourceId: keyVaultResourceID
+      KeyEncryptionAlgorithm: 'RSA-OAEP'
+      VolumeType: 'All'
+      ResizeOSDisk: false
+    }
   }
 }
+
+// //Creating encryption for the Virtual Machine's disk.
+// resource diskEncryptionSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+//   name: 'vm-${nameSpace}-disk'
+//   parent: kv
+//   tags: {
+//     DiskEncryptionKeyFileName: 'encryptionKeyProject'
+//     DiskEncryptionKeyEncryptionAlgorithm: 'RSA-OAEP'
+//   }
+//   properties: {
+//     value: encryptionKey
+//   }
+// }
 
 // The Virtual Machine with it's coresponding subnet and IP.
 resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
@@ -77,12 +101,12 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
         createOption: 'FromImage'
         encryptionSettings: {
           enabled: true
-          diskEncryptionKey: {
-            secretUrl: diskEncryptionSecret.properties.secretUriWithVersion
-            sourceVault: {
-              id: kv.id
-            }
-          }
+          // diskEncryptionKey: {
+          //   secretUrl: diskEncryptionSecret.properties.secretUriWithVersion
+          //   sourceVault: {
+          //     id: kv.id
+          //   }
+          // }
         }
       }
     }
@@ -108,32 +132,5 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
     publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional operator, very nice
   }
 }
-
-// resource usrDaphne 'Microsoft.ApiManagement/service/users@2021-12-01-preview' = {
-//   name: 'users-${nameSpace}-daphne'
-//   properties: {
-//     email: 'daphnedemoet@gmail.com'
-//     firstName: 'Daphne'
-//     lastName: 'Demoet'
-//   }
-// }
-
-// resource usrTanuja 'Microsoft.ApiManagement/service/users@2021-12-01-preview' = {
-//   name: 'users-${nameSpace}-tanuja'
-//   properties: {
-//     email: 'tanuja.dubba@gmail.com'
-//     firstName: 'Tanuja'
-//     lastName: 'Dubba'
-//   }
-// }
-
-// resource usrSait 'Microsoft.ApiManagement/service/users@2021-12-01-preview' = {
-//   name: 'users-${nameSpace}-sait'
-//   properties: {
-//     email: 'saitbaserr@gmail.com'
-//     firstName: 'Sait'
-//     lastName: 'Baserr'
-//   }
-// }
 
 output vmName string = vm.name
