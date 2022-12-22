@@ -10,13 +10,13 @@ param adminKey string
 param kvName string
 param staticIp bool = false
 param subnetId string
-param rsvName string
-param bkpolName string
+// param rsvName string
+// param bkpolName string
 param rgName string
 
-var backupFabric = 'Azure'
-var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
-var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
+// var backupFabric = 'Azure'
+// var protectionContainer = 'iaasvmcontainer;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
+// var protectedItem = 'vm;iaasvmcontainerv2;${resourceGroup().name};${nameSpace}'
 
 var extensionName = 'AzureDiskEncryption'
 var keyVaultResourceID = resourceId(rgName, 'Microsoft.KeyVault/vaults/', kvName)
@@ -28,26 +28,26 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   location: location
   properties: {
     accessPolicies: [
-      {
-        objectId: rsv.identity.principalId
-        tenantId: tenant().tenantId
-        permissions: {
-          keys: [
-            'all'
-          ]
-          secrets: [
-            'all'
-          ]
-          storage: [
-            'all'
-          ]
-        }
-      }
+    //   {
+    //     objectId: rsv.identity.principalId
+    //     tenantId: tenant().tenantId
+    //     permissions: {
+    //       keys: [
+    //         'all'
+    //       ]
+    //       secrets: [
+    //         'all'
+    //       ]
+    //       storage: [
+    //         'all'
+    //       ]
+    //     }
+    //   }
     ]
-    enabledForDiskEncryption: true
-    enabledForDeployment: true
-    enabledForTemplateDeployment: true
-    enablePurgeProtection: true
+    // enabledForDiskEncryption: true
+    // enabledForDeployment: true
+    // enabledForTemplateDeployment: true
+    // enablePurgeProtection: true
     sku: {
       family: 'A'
       name: 'standard'
@@ -56,58 +56,58 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
-resource rsv 'Microsoft.RecoveryServices/vaults@2022-02-01' = {
-  name: rsvName
-  location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  sku: {
-    name: 'RS0'
-    tier: 'Standard'
-  }
-  properties: {
-  }
-}
+// resource rsv 'Microsoft.RecoveryServices/vaults@2022-02-01' = {
+//   name: rsvName
+//   location: location
+//   identity: {
+//     type: 'SystemAssigned'
+//   }
+//   sku: {
+//     name: 'RS0'
+//     tier: 'Standard'
+//   }
+//   properties: {
+//   }
+// }
 
-resource bkpol 'Microsoft.RecoveryServices/vaults/backupPolicies@2022-09-01-preview' = {
-  name: bkpolName
-  location: location
-  parent: rsv
-  properties: {
-    backupManagementType: 'AzureIaasVM'
-    instantRpRetentionRangeInDays: 2
-    schedulePolicy: {
-      scheduleRunFrequency: 'Daily'
-      scheduleRunTimes: [
-        '21:00'
-      ]
-      schedulePolicyType: 'SimpleSchedulePolicy'
-    }
-    retentionPolicy: {
-      dailySchedule: {
-        retentionTimes: [
-          '21:00'
-        ]
-        retentionDuration: {
-          count: 7
-          durationType: 'Days'
-        }
-      }
-      retentionPolicyType: 'LongTermRetentionPolicy'
-    }
-    timeZone: 'W. Europe Standard Time'
-  }
-}
+// resource bkpol 'Microsoft.RecoveryServices/vaults/backupPolicies@2022-09-01-preview' = {
+//   name: bkpolName
+//   location: location
+//   parent: rsv
+//   properties: {
+//     backupManagementType: 'AzureIaasVM'
+//     instantRpRetentionRangeInDays: 2
+//     schedulePolicy: {
+//       scheduleRunFrequency: 'Daily'
+//       scheduleRunTimes: [
+//         '21:00'
+//       ]
+//       schedulePolicyType: 'SimpleSchedulePolicy'
+//     }
+//     retentionPolicy: {
+//       dailySchedule: {
+//         retentionTimes: [
+//           '21:00'
+//         ]
+//         retentionDuration: {
+//           count: 7
+//           durationType: 'Days'
+//         }
+//       }
+//       retentionPolicyType: 'LongTermRetentionPolicy'
+//     }
+//     timeZone: 'W. Europe Standard Time'
+//   }
+// }
 
-resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2022-09-01-preview' = {
-  name: '${rsvName}/${backupFabric}/${protectionContainer}/${protectedItem}'
-  properties: {
-    protectedItemType: 'Microsoft.Compute/virtualMachines'
-    policyId: '${rsv.id}/backupPolicies/${bkpolName}'
-    sourceResourceId: vm.id
-  }
-}
+// resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2022-09-01-preview' = {
+//   name: '${rsvName}/${backupFabric}/${protectionContainer}/${protectedItem}'
+//   properties: {
+//     protectedItemType: 'Microsoft.Compute/virtualMachines'
+//     policyId: '${rsv.id}/backupPolicies/${bkpolName}'
+//     sourceResourceId: vm.id
+//   }
+// }
 
 //Storage account to store the bootstrapscript in
 resource st 'Microsoft.Storage/storageAccounts@2022-05-01' = {
@@ -135,31 +135,26 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
 }
 
 //Deployment script for the bootstrapscript
-resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
-  name: 'deployscript-upload-blob'
-  location: location
-  kind: 'AzureCLI'
-  properties: {
-    azCliVersion: '2.42.0'
-    timeout: 'PT5M' // Times out after 5 minutes
-    retentionInterval: 'PT1H' // ISO 8601 duration for 5 minutes, then deletes it
-    environmentVariables: [
-      {
-        name: 'AZURE_STORAGE_ACCOUNT'
-        value: st.name
-      }
-      {
-        name: 'AZURE_STORAGE_KEY'
-        secureValue: st.listKeys().keys[0].value
-      }
-    ]
-    scriptContent: 'echo "${bootstrapScript}" > ${vm.name}-bootstrap && az storage blob upload -f ${vm.name}-bootstrap -c ${container.name} -n ${vm.name}-bootstrap'
-  }
-}
-
-// Caling Key Vault
-// resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
-//   name: keyVaultName
+// resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+//   name: 'deployscript-upload-blob'
+//   location: location
+//   kind: 'AzureCLI'
+//   properties: {
+//     azCliVersion: '2.42.0'
+//     timeout: 'PT20M' // Times out after 5 minutes
+//     retentionInterval: 'PT1H' // ISO 8601 duration for 5 minutes, then deletes it
+//     environmentVariables: [
+//       {
+//         name: 'AZURE_STORAGE_ACCOUNT'
+//         value: st.name
+//       }
+//       {
+//         name: 'AZURE_STORAGE_KEY'
+//         secureValue: st.listKeys().keys[0].value
+//       }
+//     ]
+//     scriptContent: 'echo "${bootstrapScript}" > ${vm.name}-bootstrap && az storage blob upload -f ${vm.name}-bootstrap -c ${container.name} -n ${vm.name}-bootstrap'
+//   }
 // }
 
 resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = {
@@ -167,13 +162,13 @@ resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01
   location: location
   properties: {
     publisher: 'Microsoft.Azure.Security'
-    type: 'AzureDiskEncryption'
-    typeHandlerVersion: '2.2'
+    type: 'AzureDiskEncryptionForLinux'
+    typeHandlerVersion: '1.1'
     autoUpgradeMinorVersion: true
     forceUpdateTag: '1.0'
     settings: {
       EncryptionOperation: 'EnableEncryption'
-      KeyVaultURL: reference(kv.id, '2019-09-01').vaultUri
+      KeyVaultURL: reference(keyVaultResourceID, '2022-07-01').vaultUri
       KeyVaultResourceId: keyVaultResourceID
       KeyEncryptionAlgorithm: 'RSA-OAEP'
       VolumeType: 'All'
@@ -266,8 +261,9 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
 
 output vmName string = vm.name
 output vmId string = vm.id
-output rsvIdentity string = rsv.identity.principalId
-output rsvId string = rsv.id
-output rsvName string = rsv.name
+// output rsvIdentity string = rsv.identity.principalId
+// output rsvId string = rsv.id
+// output rsvName string = rsv.name
 output kvName string = kv.name
 output kvId string = kv.id
+output kvIdentity string = keyVaultResourceID

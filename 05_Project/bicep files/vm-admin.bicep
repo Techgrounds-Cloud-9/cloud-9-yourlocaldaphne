@@ -25,8 +25,8 @@ resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01
   location: location
   properties: {
     publisher: 'Microsoft.Azure.Security'
-    type: 'AzureDiskEncryptionForLinux'
-    typeHandlerVersion: '1.1'
+    type: 'AzureDiskEncryption'
+    typeHandlerVersion: '2.2'
     autoUpgradeMinorVersion: true
     forceUpdateTag: '1.0'
     settings: {
