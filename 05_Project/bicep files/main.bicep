@@ -41,6 +41,16 @@ module vnet_webserver './vnet-web-admin.bicep' = {
 //   }
 // }
 
+module kv './kv.bicep' = {
+  scope: rg
+  name: 'keyVaultDeploy'
+  params: {
+    kvName: 'daphne-project-kv-8'
+    location: 'westeurope' 
+  }
+  
+}
+
 module vm_webserver './vm-web-kv-st-rsv.bicep' = {
   scope: rg
   name: 'virtualMachineWebserverDeploy'
@@ -48,13 +58,13 @@ module vm_webserver './vm-web-kv-st-rsv.bicep' = {
     location: 'westeurope'
     nameSpace: 'webserver'
     subnetId: vnet_webserver.outputs.subnetId
-    vmSize: 'Standard_B4ms'
+    vmSize: 'Standard_B2ms'
     serverType: 'UbuntuServer'
     publisher: 'Canonical'
-    OSversion: '19.04'
+    OSversion: '18.04-LTS'
     adminUsername: 'Daphne'
     adminKey: 'DaphneProject123!'
-    kvName: 'daphne-project-kv-5'
+    kvName: kv.name
     staticIp: true
     // bkpolName: 'bkpol-webserver'
     rgName: rg.name

@@ -21,41 +21,6 @@ param rgName string
 var extensionName = 'AzureDiskEncryption'
 var keyVaultResourceID = resourceId(rgName, 'Microsoft.KeyVault/vaults/', kvName)
 
-
-// Key Vault for storing the encryption of the Virtual Machines.
-resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
-  name: kvName
-  location: location
-  properties: {
-    accessPolicies: [
-    //   {
-    //     objectId: rsv.identity.principalId
-    //     tenantId: tenant().tenantId
-    //     permissions: {
-    //       keys: [
-    //         'all'
-    //       ]
-    //       secrets: [
-    //         'all'
-    //       ]
-    //       storage: [
-    //         'all'
-    //       ]
-    //     }
-    //   }
-    ]
-    // enabledForDiskEncryption: true
-    // enabledForDeployment: true
-    // enabledForTemplateDeployment: true
-    // enablePurgeProtection: true
-    sku: {
-      family: 'A'
-      name: 'standard'
-    }
-    tenantId: tenant().tenantId
-  }
-}
-
 // resource rsv 'Microsoft.RecoveryServices/vaults@2022-02-01' = {
 //   name: rsvName
 //   location: location
@@ -141,7 +106,7 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
 //   kind: 'AzureCLI'
 //   properties: {
 //     azCliVersion: '2.42.0'
-//     timeout: 'PT20M' // Times out after 5 minutes
+//     timeout: 'PT20M' // Times out after 20 minutes
 //     retentionInterval: 'PT1H' // ISO 8601 duration for 5 minutes, then deletes it
 //     environmentVariables: [
 //       {
@@ -205,7 +170,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
                     properties: {
                       deleteOption: 'Delete'
                       publicIPAddressVersion: 'IPv4'
-                      publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional or ternary operator, very nice
+                      publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional or ternary operator
                     }
                   }
                 }
@@ -225,15 +190,9 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
       }
       osDisk: {
         createOption: 'FromImage'
-        // encryptionSettings: {
-          // enabled: true
-          // diskEncryptionKey: {
-          //   secretUrl: diskEncryptionSecret.properties.secretUriWithVersion
-          //   sourceVault: {
-          //     id: kv.id
-          //   }
-          // }
-        // }
+        encryptionSettings: {
+          enabled: true
+        }
       }
     }
     osProfile: {
@@ -255,7 +214,7 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
   properties: {
     deleteOption: 'Delete'
     publicIPAddressVersion: 'IPv4'
-    publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional operator, very nice
+    publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional operator
   }
 }
 
@@ -264,6 +223,4 @@ output vmId string = vm.id
 // output rsvIdentity string = rsv.identity.principalId
 // output rsvId string = rsv.id
 // output rsvName string = rsv.name
-output kvName string = kv.name
-output kvId string = kv.id
 output kvIdentity string = keyVaultResourceID
