@@ -31,7 +31,7 @@ resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01
     forceUpdateTag: '1.0'
     settings: {
       EncryptionOperation: 'EnableEncryption'
-      KeyVaultURL: reference(kv.id, '2019-09-01').vaultUri
+      KeyVaultURL: reference(keyVaultResourceID, '2019-09-01').vaultUri
       KeyVaultResourceId: keyVaultResourceID
       KeyEncryptionAlgorithm: 'RSA-OAEP'
       VolumeType: 'All'
@@ -85,15 +85,6 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-08-01' = {
       }
       osDisk: {
         createOption: 'FromImage'
-        encryptionSettings: {
-          enabled: true
-          // diskEncryptionKey: {
-          //   secretUrl: diskEncryptionSecret.properties.secretUriWithVersion
-          //   sourceVault: {
-          //     id: kv.id
-          //   }
-          // }
-        }
       }
     }
     osProfile: {
@@ -119,4 +110,3 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
   }
 }
 
-output vmName string = vm.name

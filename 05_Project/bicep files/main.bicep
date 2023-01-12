@@ -45,7 +45,7 @@ module kv './kv.bicep' = {
   scope: rg
   name: 'keyVaultDeploy'
   params: {
-    kvName: 'daphne-project-kv-8'
+    kvName: 'daphne-project-kv-23'
     location: 'westeurope' 
   }
   
@@ -64,38 +64,38 @@ module vm_webserver './vm-web-kv-st-rsv.bicep' = {
     OSversion: '18.04-LTS'
     adminUsername: 'Daphne'
     adminKey: 'DaphneProject123!'
-    kvName: kv.name
+    kvName: kv.outputs.kvName
     staticIp: true
-    // bkpolName: 'bkpol-webserver'
+    bkpolName: 'bkpol-webserver'
     rgName: rg.name
-    // rsvName: 'rsv-webserver'
+    rsvName: 'rsv-webserver'
   }
 }
 
-// module vnet_adminserver './vnet-web-admin.bicep' = {
-//   scope: rg
-//   name: 'virtualNetworkAdminserverDeploy'
-//   params: {
-//     nameSpace: 'adminserver'
-//     location: 'westeurope'
-//     addressSpace: '10.20.20.0/24'
-//     securityRules: [
-//       {
-//         name: 'security-rules-admin'
-//         properties: {
-//           access: 'Allow'
-//           destinationPortRange: '3389'
-//           direction: 'Inbound'
-//           protocol: '*'
-//           sourceAddressPrefix: '193.53.104.0'
-//           sourcePortRange: '80'
-//           destinationAddressPrefix: '*'
-//           priority: 110
-//         }
-//       }
-//     ]
-//   }
-// }
+module vnet_adminserver './vnet-web-admin.bicep' = {
+  scope: rg
+  name: 'virtualNetworkAdminserverDeploy'
+  params: {
+    nameSpace: 'adminserver'
+    location: 'westeurope'
+    addressSpace: '10.20.20.0/24'
+    securityRules: [
+      {
+        name: 'security-rules-admin'
+        properties: {
+          access: 'Allow'
+          destinationPortRange: '3389'
+          direction: 'Inbound'
+          protocol: '*'
+          sourceAddressPrefix: '193.53.104.0'
+          sourcePortRange: '80'
+          destinationAddressPrefix: '*'
+          priority: 110
+        }
+      }
+    ]
+  }
+}
 
 // module peering_adminserver './peering.bicep' = {
 //   scope: rg
@@ -107,21 +107,21 @@ module vm_webserver './vm-web-kv-st-rsv.bicep' = {
 //   }
 // }
 
-// module vm_adminserver './vm-admin.bicep' = {
-//   scope: rg
-//   name: 'virtualMachineAdminserverDeploy'
-//   params: {
-//     location: 'westeurope'
-//     nameSpace: 'adminserver'
-//     subnetId: vnet_adminserver.outputs.subnetId
-//     vmSize: 'Standard_B1s'
-//     serverType: 'WindowsServer'
-//     publisher: 'MicrosoftWindowsServer'
-//     OSversion: '2019-Datacenter'
-//     adminUsername: 'Daphne'
-//     adminKey: 'DaphneProject123!'
-//     keyVaultName: vm_webserver.outputs.kvName
-//     staticIp: false
-//     rgName: rg.name
-//   }
-// }
+module vm_adminserver './vm-admin.bicep' = {
+  scope: rg
+  name: 'virtualMachineAdminserverDeploy'
+  params: {
+    location: 'westeurope'
+    nameSpace: 'adminserver'
+    subnetId: vnet_adminserver.outputs.subnetId
+    vmSize: 'Standard_B1s'
+    serverType: 'WindowsServer'
+    publisher: 'MicrosoftWindowsServer'
+    OSversion: '2019-Datacenter'
+    adminUsername: 'Daphne'
+    adminKey: 'DaphneProject123!'
+    keyVaultName: kv.outputs.kvName
+    staticIp: false
+    rgName: rg.name
+  }
+}

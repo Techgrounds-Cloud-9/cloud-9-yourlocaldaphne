@@ -6,23 +6,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   name: kvName
   location: location
   properties: {
-    accessPolicies: [
-    //   {
-    //     objectId: rsv.identity.principalId
-    //     tenantId: tenant().tenantId
-    //     permissions: {
-    //       keys: [
-    //         'all'
-    //       ]
-    //       secrets: [
-    //         'all'
-    //       ]
-    //       storage: [
-    //         'all'
-    //       ]
-    //     }
-    //   }
-    ]
+    accessPolicies: []
     enabledForDiskEncryption: true
     enabledForDeployment: true
     enabledForTemplateDeployment: true
