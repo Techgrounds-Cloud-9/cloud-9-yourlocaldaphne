@@ -31,24 +31,23 @@ module vnet_webserver './vnet-web-admin.bicep' = {
   }
 }
 
-// module peering_webserver './peering.bicep' = {
-//   scope: rg
-//   name: 'peeringWebserverDeploy'
-//   params: {
-//     nameSpace: 'peeringWebserver'
-//     vnetName: vnet_webserver.outputs.vnetName
-//     remoteVnetId: vnet_adminserver.outputs.vnetId
-//   }
-// }
+module peering_webserver './peering.bicep' = {
+  scope: rg
+  name: 'peeringWebserverDeploy'
+  params: {
+    nameSpace: 'peeringWebserver'
+    vnetName: vnet_webserver.outputs.vnetName
+    remoteVnetId: vnet_adminserver.outputs.vnetId
+  }
+}
 
 module kv './kv.bicep' = {
   scope: rg
   name: 'keyVaultDeploy'
   params: {
-    kvName: 'daphne-project-kv-23'
+    kvName: 'daphne-project-kv-27'
     location: 'westeurope' 
   }
-  
 }
 
 module vm_webserver './vm-web-kv-st-rsv.bicep' = {
@@ -69,6 +68,7 @@ module vm_webserver './vm-web-kv-st-rsv.bicep' = {
     bkpolName: 'bkpol-webserver'
     rgName: rg.name
     rsvName: 'rsv-webserver'
+    bootstrapScript: loadTextContent('./bootstrapscript.sh')
   }
 }
 
@@ -97,15 +97,15 @@ module vnet_adminserver './vnet-web-admin.bicep' = {
   }
 }
 
-// module peering_adminserver './peering.bicep' = {
-//   scope: rg
-//   name: 'peeringAdminserverDeploy'
-//   params: {
-//     nameSpace: 'peeringAdminserver'
-//     vnetName: vnet_adminserver.outputs.vnetName
-//     remoteVnetId: vnet_webserver.outputs.vnetId
-//   }
-// }
+module peering_adminserver './peering.bicep' = {
+  scope: rg
+  name: 'peeringAdminserverDeploy'
+  params: {
+    nameSpace: 'peeringAdminserver'
+    vnetName: vnet_adminserver.outputs.vnetName
+    remoteVnetId: vnet_webserver.outputs.vnetId
+  }
+}
 
 module vm_adminserver './vm-admin.bicep' = {
   scope: rg
@@ -117,7 +117,7 @@ module vm_adminserver './vm-admin.bicep' = {
     vmSize: 'Standard_B1s'
     serverType: 'WindowsServer'
     publisher: 'MicrosoftWindowsServer'
-    OSversion: '2019-Datacenter'
+    OSversion: '2019-datacenter-gensecond'
     adminUsername: 'Daphne'
     adminKey: 'DaphneProject123!'
     keyVaultName: kv.outputs.kvName

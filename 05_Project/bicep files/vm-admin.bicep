@@ -21,7 +21,8 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
 }
 
 resource DiskEncryption 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = {
-  name: '${nameSpace}/${extensionName}'
+  parent: vm
+  name: extensionName
   location: location
   properties: {
     publisher: 'Microsoft.Azure.Security'
@@ -106,7 +107,6 @@ resource pip 'Microsoft.Network/publicIPAddresses@2022-07-01' = {
   properties: {
     deleteOption: 'Delete'
     publicIPAddressVersion: 'IPv4'
-    publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic' //conditional operator, very nice
+    publicIPAllocationMethod: staticIp ? 'Static' : 'Dynamic'
   }
 }
-

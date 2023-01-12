@@ -28,7 +28,6 @@ Requirements for v1.0:
 - Public static, private dynamic.
 - The web server should be backed up daily and the backup should be available for 7 days.
 - The storage account has a post deployment script.(bootstrap script)
-- The AAD integrated with and users need to be added. 
 
 #
 ### Resources needed
