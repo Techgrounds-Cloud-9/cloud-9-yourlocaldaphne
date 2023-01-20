@@ -146,8 +146,12 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
         name: 'AZURE_STORAGE_KEY'
         secureValue: st.listKeys().keys[0].value
       }
+      {
+        name: 'CONTENT'
+        value: loadTextContent('./bootstrapscript.sh')
+      }
     ]
-    scriptContent: 'echo "${bootstrapScript}" > ${vm.name}-bootstrap && az storage blob upload -f ${vm.name}-bootstrap -c ${container.name} -n ${vm.name}-bootstrap'
+    scriptContent: 'echo "$CONTENT" > ${vm.name}-bootstrap && az storage blob upload -f ${vm.name}-bootstrap -c ${container.name} -n ${vm.name}-bootstrap'
   }
 }
 

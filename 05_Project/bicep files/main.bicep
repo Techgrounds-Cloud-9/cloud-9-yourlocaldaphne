@@ -18,11 +18,11 @@ module vnet_webserver './vnet-web-admin.bicep' = {
         name: 'security-rules-web'
         properties: {
           access: 'Allow'
-          destinationPortRange: '*'
+          destinationPortRange: '80'
           direction: 'Inbound'
           protocol: 'Tcp'
           sourceAddressPrefix: '*'
-          sourcePortRange: '80'
+          sourcePortRange: '*'
           destinationAddressPrefix: '*'
           priority: 120
         }
@@ -45,7 +45,7 @@ module kv './kv.bicep' = {
   scope: rg
   name: 'keyVaultDeploy'
   params: {
-    kvName: 'daphne-project-kv-27'
+    kvName: 'daphne-project-kv-29'
     location: 'westeurope' 
   }
 }
@@ -88,7 +88,7 @@ module vnet_adminserver './vnet-web-admin.bicep' = {
           direction: 'Inbound'
           protocol: '*'
           sourceAddressPrefix: '193.53.104.0'
-          sourcePortRange: '80'
+          sourcePortRange: '*'
           destinationAddressPrefix: '*'
           priority: 110
         }
