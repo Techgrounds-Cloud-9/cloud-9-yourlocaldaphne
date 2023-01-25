@@ -43,9 +43,10 @@ module peering_webserver './peering.bicep' = {
 
 module kv './kv.bicep' = {
   scope: rg
+
   name: 'keyVaultDeploy'
   params: {
-    kvName: 'daphne-project-kv-29'
+    kvName: 'daphne-bicep-kv-01'
     location: 'westeurope' 
   }
 }
@@ -87,7 +88,7 @@ module vnet_adminserver './vnet-web-admin.bicep' = {
           destinationPortRange: '3389'
           direction: 'Inbound'
           protocol: '*'
-          sourceAddressPrefix: '193.53.104.0'
+          sourceAddressPrefix: '*'
           sourcePortRange: '*'
           destinationAddressPrefix: '*'
           priority: 110
